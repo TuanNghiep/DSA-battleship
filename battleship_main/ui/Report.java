@@ -1,3 +1,4 @@
+//Some general purpose Boolean flags for the different states of gameplay
 package battleship_main.ui;
 public class Report {
 	private Position p;

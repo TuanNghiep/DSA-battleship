@@ -43,7 +43,7 @@ public class UIManagePanel extends UIJPanelBG{
         counterLabel[0] = new JLabel("1");
         counterLabel[1] = new JLabel("2");
         counterLabel[2] = new JLabel("3");
-        counterLabel[3] = new JLabel("3");
+        counterLabel[3] = new JLabel("4");
         for (int i = 0; i < ship.length; i++) {
             ship[i].setBounds(0, 25 + (i * 60), 160, 40);
             radioButtonShip.add(ship[i]);
