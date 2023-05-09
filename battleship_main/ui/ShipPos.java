@@ -28,7 +28,7 @@ public class ShipPos {
 		return yfin;
 	}
 
-	public boolean uguale(int x, int y) {
+	public boolean checkCoord(int x, int y) {
 		if (x <= xfin && x >= xin && y <= yfin && y >= yin) {
 			return true;
 		}

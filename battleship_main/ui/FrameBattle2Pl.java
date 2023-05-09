@@ -103,7 +103,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
         ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
         String cosa;
-        if (rep.isColpita())
+        if (rep.isHit())
             cosa = "X";
         else
             cosa = "A";
@@ -136,14 +136,14 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
         Position newP = new Position(x, y);
-        boolean colpito = cpuMap.colpisci(newP);
-        Report rep = new Report(newP, colpito, false);
+        boolean hit = cpuMap.hit(newP);
+        Report rep = new Report(newP, hit, false);
         this.setCasella(rep, true);
-        if (colpito) { // continua a giocare il player
+        if (hit) { // continua a giocare il player
             ShipPos shipSunk = cpuMap.sunk(newP);
             if (shipSunk != null) {
                 numNaviCPU--;
-                setAffondato(shipSunk);
+                setSunk(shipSunk);
                 if (numNaviCPU == 0) {
                     Object[] options = { "Nuova Partita", "Esci" };
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("Hai Vinto!", JLabel.CENTER)),
@@ -168,7 +168,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         frame.requestFocusInWindow();
     }
 
-    private void setAffondato(Position p) {
+    private void setSunk(Position p) {
         LinkedList<String> possibilita = new LinkedList<String>();
         if (p.getCoordX() != 0) {
             possibilita.add("N");
@@ -197,7 +197,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
             }
             direzione = possibilita.removeFirst();
             posAttuale.sposta(direzione.charAt(0));
-            if (playerMap.colpito(posAttuale)) {
+            if (playerMap.hit(posAttuale)) {
                 trovato = true;
             }
         } while (!trovato);
@@ -218,7 +218,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         deleteShip(dim, statPlayer);
     }
 
-    private void setAffondato(ShipPos shipSunk) {
+    private void setSunk(ShipPos shipSunk) {
         int dim = 0;
         for (int i = shipSunk.getXin(); i <= shipSunk.getXfin(); i++) {
             for (int j = shipSunk.getYin(); j <= shipSunk.getYfin(); j++) {
@@ -309,11 +309,11 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
 
             Report report = cpu.mioTurno();
             disegnaTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
-            flag = report.isColpita();
+            flag = report.isHit();
             setCasella(report, false);
             if (report.isSunk()) {
                 numNaviPlayer--;
-                setAffondato(report.getP());
+                setSunk(report.getP());
                 if (numNaviPlayer == 0) {
                     Object[] options = { "Nuova Partita", "Esci" };
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("Hai Perso!", JLabel.CENTER)),

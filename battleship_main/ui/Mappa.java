@@ -42,18 +42,18 @@ public class Mappa {
 	public boolean insertShip(int x, int y, int dim, int dir) {
 		if (dir == 1 && x + dim > DIM_MAPPA) {
 			return false;
-		} // verticale
+		} // vertical
 		if (dir == 0 && y + dim > DIM_MAPPA) {
 			return false;
-		} // orizzontale
-		boolean inserito;
+		} // horizontal 
+		boolean insert;
 
 		if (dir == 0)
-			inserito = checkHorizontal(x, y, dim);
+			insert = checkHorizontal(x, y, dim);
 		else
-			inserito = checkVertical(x, y, dim);
+			insert = checkVertical(x, y, dim);
 
-		if (!inserito)
+		if (!insert)
 			return false;
 		if (dir == 0) {
 			ShipPos n = new ShipPos(x, y, x, y + dim - 1);
@@ -71,53 +71,53 @@ public class Mappa {
 		return true;
 	}
 
-	public int[] insertShipRandom(Random random, int dimensione) {
-		boolean inserito;
+	public int[] insertShipRandom(Random random, int dimention) {
+		boolean insert;
 		int[] dati = new int[4];
-		int direzione, riga, colonna;
+		int direction, riga, colonna;
 		do {
-			inserito = true;
-			direzione = random.nextInt(2); // 0=Horizontal, 1=Vertical
-			if (direzione == 0) {
-				colonna = random.nextInt(DIM_MAPPA - dimensione + 1);
+			insert = true;
+			direction = random.nextInt(2); // 0=Horizontal, 1=Vertical
+			if (direction == 0) {
+				colonna = random.nextInt(DIM_MAPPA - dimention + 1);
 				riga = random.nextInt(DIM_MAPPA);
 			} else {
 				colonna = random.nextInt(DIM_MAPPA);
-				riga = random.nextInt(DIM_MAPPA - dimensione + 1);
+				riga = random.nextInt(DIM_MAPPA - dimention + 1);
 			}
-			if (direzione == 0)
-				inserito = checkHorizontal(riga, colonna, dimensione);
+			if (direction == 0)
+				insert = checkHorizontal(riga, colonna, dimention);
 			else
-				inserito = checkVertical(riga, colonna, dimensione);
-		} while (!inserito);
-		if (direzione == 0) {
-			ShipPos n = new ShipPos(riga, colonna, riga, colonna + dimensione - 1);
+				insert = checkVertical(riga, colonna, dimention);
+		} while (!insert);
+		if (direction == 0) {
+			ShipPos n = new ShipPos(riga, colonna, riga, colonna + dimention - 1);
 			listaNavi.add(n);
 		} else {
-			ShipPos n = new ShipPos(riga, colonna, riga + dimensione - 1, colonna);
+			ShipPos n = new ShipPos(riga, colonna, riga + dimention - 1, colonna);
 			listaNavi.add(n);
 		}
-		for (int i = 0; i < dimensione; i++) {
-			if (direzione == 0) {
+		for (int i = 0; i < dimention; i++) {
+			if (direction == 0) {
 				mappa[riga][colonna + i] = SHIP;
 			} else
 				mappa[riga + i][colonna] = SHIP;
 		}
 		dati[0] = riga;
 		dati[1] = colonna;
-		dati[2] = dimensione;
-		dati[3] = direzione;
+		dati[2] = dimention;
+		dati[3] = direction;
 		return dati;
 	}
 
-	public boolean checkVertical(int riga, int colonna, int dimensione) {
+	public boolean checkVertical(int riga, int colonna, int dimention) {
 		if (riga != 0)
 			if (mappa[riga - 1][colonna] == SHIP)
 				return false;
-		if (riga != DIM_MAPPA - dimensione)// la nave finisce sul bordo
-			if (mappa[riga + dimensione][colonna] == SHIP)
+		if (riga != DIM_MAPPA - dimention)// la ship finisce sul bordo
+			if (mappa[riga + dimention][colonna] == SHIP)
 				return false;
-		for (int i = 0; i < dimensione; i++) {
+		for (int i = 0; i < dimention; i++) {
 			if (colonna != 0)
 				if (mappa[riga + i][colonna - 1] == SHIP)
 					return false;
@@ -130,14 +130,14 @@ public class Mappa {
 		return true;
 	}
 
-	public boolean checkHorizontal(int riga, int colonna, int dimensione) {
+	public boolean checkHorizontal(int riga, int colonna, int dimention) {
 		if (colonna != 0)
 			if (mappa[riga][colonna - 1] == SHIP)
 				return false;
-		if (colonna != DIM_MAPPA - dimensione)
-			if (mappa[riga][colonna + dimensione] == SHIP)
+		if (colonna != DIM_MAPPA - dimention)
+			if (mappa[riga][colonna + dimention] == SHIP)
 				return false;
-		for (int i = 0; i < dimensione; i++) {
+		for (int i = 0; i < dimention; i++) {
 			if (riga != 0)
 				if (mappa[riga - 1][colonna + i] == SHIP)
 					return false;
@@ -150,7 +150,7 @@ public class Mappa {
 		return true;
 	}
 
-	public boolean colpisci(Position p) {
+	public boolean hitt(Position p) {
 		int riga = p.getCoordX();
 		int colonna = p.getCoordY();
 		if (mappa[riga][colonna] == SHIP) {
@@ -164,22 +164,22 @@ public class Mappa {
 	public ShipPos sunk(Position p) {
 		int riga = p.getCoordX();
 		int col = p.getCoordY();
-		ShipPos nave = null;
+		ShipPos ship = null;
 		for (int i = 0; i < listaNavi.size(); i++) {
-			if (listaNavi.get(i).uguale(riga, col)) {
-				nave = listaNavi.get(i);
+			if (listaNavi.get(i).checkCoord(riga, col)) {
+				ship = listaNavi.get(i);
 				break;
 			}
 		}
-		for (int i = nave.getXin(); i <= nave.getXfin(); i++) {
-			for (int j = nave.getYin(); j <= nave.getYfin(); j++) {
+		for (int i = ship.getXin(); i <= ship.getXfin(); i++) {
+			for (int j = ship.getYin(); j <= ship.getYfin(); j++) {
 				if (mappa[i][j] != HIT) {
 					return null;
 				}
 			}
 		}
-		listaNavi.remove(nave);
-		return nave;
+		listaNavi.remove(ship);
+		return ship;
 	}
 
 	public void setAcqua(Position p) {
@@ -190,7 +190,7 @@ public class Mappa {
 		return mappa[p.getCoordX()][p.getCoordY()] == ACQUA;
 	}
 
-	public boolean colpito(Position p) {
+	public boolean hit(Position p) {
 		return mappa[p.getCoordX()][p.getCoordY()] == HIT;
 	}
 
@@ -205,7 +205,6 @@ public class Mappa {
 		return sb.toString();
 	}
 
-	// metodo che permette di ricevere la lista di navi dell avversario
 	public void setAdvShips(LinkedList<int[]> advShips) {
 		listaNavi.clear();
 		for (int[] a : advShips) {

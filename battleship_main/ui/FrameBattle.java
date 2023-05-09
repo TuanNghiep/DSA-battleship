@@ -102,7 +102,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
         ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
         String cosa;
-        if (rep.isColpita())
+        if (rep.isHit())
             cosa = "X";
         else
             cosa = "A";
@@ -135,7 +135,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
         Position newP = new Position(x, y);
-        boolean colpito = cpuMap.colpisci(newP);
+        boolean colpito = cpuMap.hitt(newP);
         Report rep = new Report(newP, colpito, false);
         this.setCasella(rep, true);
         if (colpito) { // continua a giocare il player
@@ -196,7 +196,7 @@ public class FrameBattle implements ActionListener, KeyListener {
             }
             direzione = possibilita.removeFirst();
             posAttuale.sposta(direzione.charAt(0));
-            if (playerMap.colpito(posAttuale)) {
+            if (playerMap.hitt(posAttuale)) {
                 trovato = true;
             }
         } while (!trovato);
@@ -308,7 +308,7 @@ public class FrameBattle implements ActionListener, KeyListener {
 
             Report report = cpu.mioTurno();
             disegnaTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
-            flag = report.isColpita();
+            flag = report.isHit();
             setCasella(report, false);
             if (report.isSunk()) {
                 numNaviPlayer--;

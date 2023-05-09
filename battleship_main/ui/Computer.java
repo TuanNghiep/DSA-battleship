@@ -6,12 +6,12 @@ import java.util.Random;
 public class Computer {
 	private LinkedList<Position> listaColpi;
 	private Random r;
-	private int colpito;
+	private int hit;
 	private LinkedList<String> possibilita;
 	private Position ultimoColpo;
 	private String direzione;
 	private Mappa plMap;
-	private Position primoColpito;// posizione in cui colpisco per la priam
+	private Position primohit;// posizione in cui colpisco per la priam
 									// volta la nave
 
 	public Computer(Mappa mappaAvversario) {
@@ -24,65 +24,65 @@ public class Computer {
 			}
 		}
 		r = new Random();
-		colpito = 0;
+		hit = 0;
 	}
 
 	public Report mioTurno() {
 
 		Report rep = new Report();
-		if (colpito == 0) {
+		if (hit == 0) {
 			boolean colpo = sparaRandom();
 			rep.setP(ultimoColpo);
-			rep.setColpita(colpo);
+			rep.setHit(colpo);
 			ShipPos sunk;
 			if (colpo) {
-				colpito++;
+				hit++;
 				sunk = plMap.sunk(ultimoColpo);
 				if (sunk != null) {
 					rep.setSunk(true);
 					rimuoviContorni(sunk);
-					colpito = 0;
+					hit = 0;
 					direzione = null;
 				} else {
-					primoColpito = ultimoColpo;
+					primohit = ultimoColpo;
 					possibilita = new LinkedList<String>();
 					inizializzaLista();
 				}
 			}
 			return rep;
 		} // Sparo randomaticamente
-		if (colpito == 1) {
+		if (hit == 1) {
 			boolean colpo = sparaMirato1();
 			ShipPos sunk;
 			rep.setP(ultimoColpo);
-			rep.setColpita(colpo);
+			rep.setHit(colpo);
 			rep.setSunk(false);
 			if (colpo) {
-				colpito++;
+				hit++;
 				possibilita = null;
 				sunk = plMap.sunk(ultimoColpo);
 				if (sunk != null) {
 					rep.setSunk(true);
 					rimuoviContorni(sunk);
-					colpito = 0;
+					hit = 0;
 					direzione = null;
 				}
 			}
 			return rep;
 		}
-		if (colpito >= 2) {
+		if (hit >= 2) {
 			boolean colpo = sparaMirato2();
 			ShipPos sunk;
 			rep.setP(ultimoColpo);
-			rep.setColpita(colpo);
+			rep.setHit(colpo);
 			rep.setSunk(false);
 			if (colpo) {
-				colpito++;
+				hit++;
 				sunk = plMap.sunk(ultimoColpo);
 				if (sunk != null) {
 					rep.setSunk(true);
 					rimuoviContorni(sunk);
-					colpito = 0;
+					hit = 0;
 					direzione = null;
 				}
 			} else {
@@ -97,7 +97,7 @@ public class Computer {
 		int tiro = r.nextInt(listaColpi.size());
 		Position p = listaColpi.remove(tiro);
 		ultimoColpo = p;
-		boolean colpo = plMap.colpisci(p);
+		boolean colpo = plMap.hitt(p);
 		return colpo;
 	}
 
@@ -107,7 +107,7 @@ public class Computer {
 		do {
 			int tiro = r.nextInt(possibilita.size());
 			String dove = possibilita.remove(tiro);
-			p = new Position(primoColpito);
+			p = new Position(primohit);
 			p.sposta(dove.charAt(0));
 			direzione = dove;
 			if (!plMap.acqua(p)) {
@@ -115,9 +115,9 @@ public class Computer {
 				errore = false;
 			}
 		} while (errore);// verifica che non si cerchi di sparare su una
-							// posizione già colpita
+							// posizione già Hit
 		ultimoColpo = p;
-		return plMap.colpisci(p);
+		return plMap.hitt(p);
 	}
 
 	private boolean sparaMirato2() {
@@ -129,7 +129,7 @@ public class Computer {
 			if (p.fuoriMappa() || plMap.acqua(p)) {
 				invertiDirezione();
 			} else {
-				if (!plMap.colpito(p)) {
+				if (!plMap.hit(p)) {
 					colpibile = true;
 				}
 
@@ -137,7 +137,7 @@ public class Computer {
 		} while (!colpibile);
 		listaColpi.remove(p);
 		ultimoColpo = p;
-		return plMap.colpisci(p);
+		return plMap.hitt(p);
 	}
 
 	//

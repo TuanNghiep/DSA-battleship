@@ -112,13 +112,14 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                 dir = 1;
             boolean inserito = mappa.insertShip(x, y, dim, dir);
             if (inserito) {
-                // incrementa il numero di navi inserite
+                
+                // increment the number of inserted ships
                 naviInserite++;
-                // decrementa il contatore della nave inserita
+                // decrease the number of inserted ships
                 counterShip[nave]--;
                 choosePan.counterLabel[nave].setText("" + counterShip[nave]);
-                // disabilita la nave se sono state inserite tutte e seleziona
-                // automaticamente un'altra nave da inserire
+                
+                // disable ship if all are entered 
                 if (choosePan.counterLabel[nave].getText().equals("0")) {
                     choosePan.ship[nave].setEnabled(false);
                     for (int i = 0; i < choosePan.ship.length; i++) {
