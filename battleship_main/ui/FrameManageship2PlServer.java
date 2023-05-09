@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import battleship_main.ui.Mappa;
+
 
 public class FrameManageship2PlServer extends JFrame implements ActionListener, KeyListener {
     private static final long serialVersionUID = 2923975805665801740L;
@@ -53,12 +53,12 @@ public class FrameManageship2PlServer extends JFrame implements ActionListener, 
         container.add(choosePan);
         mapPanel.setBounds(25, 25, 600, 620);
         choosePan.setBounds(580, 25, 280, 800);
-        // Pannello interno contenente le navi da posizionare.
+        // Internal panel containing the ships' place.
         this.add(container);
-        for (int i = 0; i < mapPanel.bottoni.length; i++) {
-            for (int j = 0; j < mapPanel.bottoni[i].length; j++) {
-                mapPanel.bottoni[i][j].addActionListener(this);
-                mapPanel.bottoni[i][j].setActionCommand("" + i + " " + j);
+        for (int i = 0; i < mapPanel.button.length; i++) {
+            for (int j = 0; j < mapPanel.button[i].length; j++) {
+                mapPanel.button[i][j].addActionListener(this);
+                mapPanel.button[i][j].setActionCommand("" + i + " " + j);
             }
         }
         choosePan.random.addActionListener(this);
@@ -118,7 +118,7 @@ public class FrameManageship2PlServer extends JFrame implements ActionListener, 
                 dir = 0;
             else
                 dir = 1;
-            boolean inserito = mappa.inserisciNave(x, y, dim, dir);
+            boolean inserito = mappa.insertShip(x, y, dim, dir);
             if (inserito) {
                 // incrementa il numero di navi inserite
                 naviInserite++;
@@ -145,7 +145,7 @@ public class FrameManageship2PlServer extends JFrame implements ActionListener, 
                 }
                 int[] dati = { x, y, dim, dir };
                 myShips.add(dati);
-                mapPanel.disegnaNave(dati);
+                mapPanel.disegnaShip(dati);
             }
         }
         this.requestFocusInWindow();
@@ -159,9 +159,9 @@ public class FrameManageship2PlServer extends JFrame implements ActionListener, 
         int[] dati = new int[4];
         for (int i = 0; i < counterShip.length; i++) {
             for (int j = 0; j < counterShip[i]; j++) {
-                dati = mappa.inserisciNaveRandom(r, counterShip.length - i);
+                dati = mappa.insertShipRandom(r, counterShip.length - i);
                 myShips.add(dati);
-                mapPanel.disegnaNave(dati);
+                mapPanel.disegnaShip(dati);
             }
         }
         naviInserite = NUM_NAVI;
@@ -185,7 +185,7 @@ public class FrameManageship2PlServer extends JFrame implements ActionListener, 
         myShips = new LinkedList<int[]>();
         for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
             for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
-                mapPanel.bottoni[i][j].setEnabled(true);
+                mapPanel.button[i][j].setEnabled(true);
             }
         }
         finito = false;

@@ -1,21 +1,21 @@
 package battleship_main.ui;
 public class Report {
-	private Posizione p;
+	private Position p;
 	private boolean colpita;
-	private boolean affondata;
+	private boolean sunk;
 	
 	public Report(){
 	}
 	
-	public Report(Posizione p, boolean colpita, boolean affondata) {
+	public Report(Position p, boolean colpita, boolean sunk) {
 		this.p = p;
 		this.colpita = colpita;
-		this.affondata = affondata;
+		this.sunk = sunk;
 	}
-	public Posizione getP() {
+	public Position getP() {
 		return p;
 	}
-	public void setP(Posizione p) {
+	public void setP(Position p) {
 		this.p = p;
 	}
 	public boolean isColpita() {
@@ -24,13 +24,13 @@ public class Report {
 	public void setColpita(boolean colpita) {
 		this.colpita = colpita;
 	}
-	public boolean isAffondata() {
-		return affondata;
+	public boolean isSunk() {
+		return sunk;
 	}
-	public void setAffondata(boolean affondata) {
-		this.affondata = affondata;
+	public void setSunk(boolean sunk) {
+		this.sunk = sunk;
 	}	
 	public String toString(){
-		return "coordinate:"+p+" colpito:"+colpita+" affondato:"+affondata;
+		return "coordinate:"+p+" colpito:"+colpita+" affondato:"+sunk;
 	}
 }

@@ -4,22 +4,22 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Computer {
-	private LinkedList<Posizione> listaColpi;
+	private LinkedList<Position> listaColpi;
 	private Random r;
 	private int colpito;
 	private LinkedList<String> possibilita;
-	private Posizione ultimoColpo;
+	private Position ultimoColpo;
 	private String direzione;
 	private Mappa plMap;
-	private Posizione primoColpito;// posizione in cui colpisco per la priam
+	private Position primoColpito;// posizione in cui colpisco per la priam
 									// volta la nave
 
 	public Computer(Mappa mappaAvversario) {
-		listaColpi = new LinkedList<Posizione>();
+		listaColpi = new LinkedList<Position>();
 		this.plMap = mappaAvversario;
 		for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
 			for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
-				Posizione p = new Posizione(i, j);
+				Position p = new Position(i, j);
 				listaColpi.add(p);// Inizializza colpi possibili
 			}
 		}
@@ -34,13 +34,13 @@ public class Computer {
 			boolean colpo = sparaRandom();
 			rep.setP(ultimoColpo);
 			rep.setColpita(colpo);
-			Nave affondata;
+			ShipPos sunk;
 			if (colpo) {
 				colpito++;
-				affondata = plMap.affondato(ultimoColpo);
-				if (affondata != null) {
-					rep.setAffondata(true);
-					rimuoviContorni(affondata);
+				sunk = plMap.sunk(ultimoColpo);
+				if (sunk != null) {
+					rep.setSunk(true);
+					rimuoviContorni(sunk);
 					colpito = 0;
 					direzione = null;
 				} else {
@@ -53,17 +53,17 @@ public class Computer {
 		} // Sparo randomaticamente
 		if (colpito == 1) {
 			boolean colpo = sparaMirato1();
-			Nave affondata;
+			ShipPos sunk;
 			rep.setP(ultimoColpo);
 			rep.setColpita(colpo);
-			rep.setAffondata(false);
+			rep.setSunk(false);
 			if (colpo) {
 				colpito++;
 				possibilita = null;
-				affondata = plMap.affondato(ultimoColpo);
-				if (affondata != null) {
-					rep.setAffondata(true);
-					rimuoviContorni(affondata);
+				sunk = plMap.sunk(ultimoColpo);
+				if (sunk != null) {
+					rep.setSunk(true);
+					rimuoviContorni(sunk);
 					colpito = 0;
 					direzione = null;
 				}
@@ -72,16 +72,16 @@ public class Computer {
 		}
 		if (colpito >= 2) {
 			boolean colpo = sparaMirato2();
-			Nave affondata;
+			ShipPos sunk;
 			rep.setP(ultimoColpo);
 			rep.setColpita(colpo);
-			rep.setAffondata(false);
+			rep.setSunk(false);
 			if (colpo) {
 				colpito++;
-				affondata = plMap.affondato(ultimoColpo);
-				if (affondata != null) {
-					rep.setAffondata(true);
-					rimuoviContorni(affondata);
+				sunk = plMap.sunk(ultimoColpo);
+				if (sunk != null) {
+					rep.setSunk(true);
+					rimuoviContorni(sunk);
 					colpito = 0;
 					direzione = null;
 				}
@@ -95,7 +95,7 @@ public class Computer {
 
 	private boolean sparaRandom() {
 		int tiro = r.nextInt(listaColpi.size());
-		Posizione p = listaColpi.remove(tiro);
+		Position p = listaColpi.remove(tiro);
 		ultimoColpo = p;
 		boolean colpo = plMap.colpisci(p);
 		return colpo;
@@ -103,11 +103,11 @@ public class Computer {
 
 	private boolean sparaMirato1() {
 		boolean errore = true;
-		Posizione p = null;
+		Position p = null;
 		do {
 			int tiro = r.nextInt(possibilita.size());
 			String dove = possibilita.remove(tiro);
-			p = new Posizione(primoColpito);
+			p = new Position(primoColpito);
 			p.sposta(dove.charAt(0));
 			direzione = dove;
 			if (!plMap.acqua(p)) {
@@ -122,7 +122,7 @@ public class Computer {
 
 	private boolean sparaMirato2() {
 		boolean colpibile = false;
-		Posizione p = new Posizione(ultimoColpo);
+		Position p = new Position(ultimoColpo);
 		do {
 			p.sposta(direzione.charAt(0));
 
@@ -142,14 +142,14 @@ public class Computer {
 
 	//
 
-	private void rimuoviContorni(Nave affondata) {
-		int Xin = affondata.getXin();
-		int Xfin = affondata.getXfin();
-		int Yin = affondata.getYin();
-		int Yfin = affondata.getYfin();
+	private void rimuoviContorni(ShipPos sunk) {
+		int Xin = sunk.getXin();
+		int Xfin = sunk.getXfin();
+		int Yin = sunk.getYin();
+		int Yfin = sunk.getYfin();
 		if (Xin == Xfin) {// orizzontale
 			if (Yin != 0) {
-				Posizione p = new Posizione(Xin, Yin - 1);
+				Position p = new Position(Xin, Yin - 1);
 				if (!plMap.acqua(p)) {
 					listaColpi.remove(p);
 					plMap.setAcqua(p);
@@ -157,7 +157,7 @@ public class Computer {
 				}
 			}
 			if (Yfin != Mappa.DIM_MAPPA - 1) {
-				Posizione p = new Posizione(Xin, Yfin + 1);
+				Position p = new Position(Xin, Yfin + 1);
 				if (!plMap.acqua(p)) {
 					listaColpi.remove(p);
 					plMap.setAcqua(p);
@@ -165,7 +165,7 @@ public class Computer {
 			}
 			if (Xin != 0) {
 				for (int i = 0; i <= Yfin - Yin; i++) {
-					Posizione p = new Posizione(Xin - 1, Yin + i);
+					Position p = new Position(Xin - 1, Yin + i);
 					if (!plMap.acqua(p)) {
 						listaColpi.remove(p);
 						plMap.setAcqua(p);
@@ -175,7 +175,7 @@ public class Computer {
 			}
 			if (Xin != Mappa.DIM_MAPPA - 1) {
 				for (int i = 0; i <= Yfin - Yin; i++) {
-					Posizione p = new Posizione(Xin + 1, Yin + i);
+					Position p = new Position(Xin + 1, Yin + i);
 					if (!plMap.acqua(p)) {
 						listaColpi.remove(p);
 						plMap.setAcqua(p);
@@ -184,14 +184,14 @@ public class Computer {
 			}
 		} else {// verticale
 			if (Xin != 0) {
-				Posizione p = new Posizione(Xin - 1, Yin);
+				Position p = new Position(Xin - 1, Yin);
 				if (!plMap.acqua(p)) {
 					listaColpi.remove(p);
 					plMap.setAcqua(p);
 				}
 			}
 			if (Xfin != Mappa.DIM_MAPPA - 1) {
-				Posizione p = new Posizione(Xfin + 1, Yin);
+				Position p = new Position(Xfin + 1, Yin);
 				if (!plMap.acqua(p)) {
 					listaColpi.remove(p);
 					plMap.setAcqua(p);
@@ -199,7 +199,7 @@ public class Computer {
 			}
 			if (Yin != 0) {
 				for (int i = 0; i <= Xfin - Xin; i++) {
-					Posizione p = new Posizione(Xin + i, Yin - 1);
+					Position p = new Position(Xin + i, Yin - 1);
 					if (!plMap.acqua(p)) {
 						listaColpi.remove(p);
 						plMap.setAcqua(p);
@@ -209,7 +209,7 @@ public class Computer {
 			}
 			if (Yfin != Mappa.DIM_MAPPA - 1) {
 				for (int i = 0; i <= Xfin - Xin; i++) {
-					Posizione p = new Posizione(Xin + i, Yin + 1);
+					Position p = new Position(Xin + i, Yin + 1);
 					if (!plMap.acqua(p)) {
 						listaColpi.remove(p);
 						plMap.setAcqua(p);
