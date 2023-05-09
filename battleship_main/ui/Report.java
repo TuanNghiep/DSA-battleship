@@ -1,5 +1,4 @@
-package battleship;
-
+package battleship_main.ui;
 public class Report {
 	private Posizione p;
 	private boolean colpita;

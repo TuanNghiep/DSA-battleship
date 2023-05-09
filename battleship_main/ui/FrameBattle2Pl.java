@@ -18,11 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import battleship_main.ui.Computer;
-import battleship_main.ui.Mappa;
-import battleship_main.ui.Nave;
-import battleship_main.ui.Posizione;
-import battleship_main.ui.Report;
 
 public class FrameBattle2Pl implements ActionListener, KeyListener{
     UIMapPanel playerPanel = new UIMapPanel("player");

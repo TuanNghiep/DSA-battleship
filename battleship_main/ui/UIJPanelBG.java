@@ -1,6 +1,5 @@
 package battleship_main.ui;
 
-import ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
