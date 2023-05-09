@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import battleship_main.Mappa;
+import battleship_main.ui.Mappa;
 
 public class FrameManageship extends JFrame implements ActionListener, KeyListener{
     private static final long serialVersionUID = 2923975805665801740L;
