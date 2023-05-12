@@ -14,6 +14,7 @@ public class UIManagePanel extends UIJPanelBG{
     JButton random;
     JButton reset;
     JButton gioca;
+    JButton Load;
 
     public UIManagePanel() {
 
@@ -98,6 +99,16 @@ public class UIManagePanel extends UIJPanelBG{
         reset.setCursor(cursor);
         reset.setText("reset");
 
+        Load = new JButton(resetImg);
+        Load.setRolloverIcon(resetImgOver);
+        Load.setBorder(null);
+        Load.setOpaque(false);
+        Load.setBorderPainted(false);
+        Load.setContentAreaFilled(false);
+        Load.setBounds(500, 900, 1370, 1025);
+        Load.setCursor(cursor);
+        Load.setText("Load");
+
         // Bottone Gioca
         ImageIcon giocaImg = new ImageIcon(getClass().getResource("/res/images/gioca.png"));
         ImageIcon giocaImgOver = new ImageIcon(getClass().getResource("/res/images/giocaOver.png"));
@@ -117,6 +128,7 @@ public class UIManagePanel extends UIJPanelBG{
         this.add(random);
         this.add(gioca);
         this.add(reset);
+        this.add(Load);
 
     }
 }
