@@ -22,7 +22,7 @@ import javax.swing.Timer;
 public class FrameBattle implements ActionListener, KeyListener {
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
-    JFrame frame = new JFrame("Battaglia Navale");
+    JFrame frame = new JFrame("Battleship");
     JPanel comandPanel = new JPanel();
     Cursor cursorDefault = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     UIJPanelBG panel = new UIJPanelBG(
@@ -51,7 +51,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         cpuMap = new Mappa();
         cpuMap.riempiMappaRandom();
         frame.setSize(1080, 700);
-        frame.setTitle("Battaglia Navale - Pirate Edition");
+        frame.setTitle("Battleship");
         frame.setFocusable(true);
         frame.requestFocusInWindow();
         frame.addKeyListener(this);

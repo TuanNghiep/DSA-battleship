@@ -27,7 +27,7 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
     UIMapPanel mapPanel;
 
     public FrameManageship() {
-        super("Battaglia Navale - Pirate Edition");
+        super("Battleship");
         mappa = new Mappa();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);

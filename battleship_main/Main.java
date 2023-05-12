@@ -1,6 +1,9 @@
 package battleship_main;
 
 import battleship_main.ui.FrameManageship;
+//import battleship_main.ui.FrameManageship2PlClient;
+import battleship_main.ui.FrameManageship2PlServer;
+import battleship_main.ui.FrameMenu;
 import battleship_main.ui.FrameSplashscreen;
 
 public class Main {
@@ -11,11 +14,11 @@ public class Main {
         } catch (InterruptedException e) {
         }
         intro.setVisible(false);
-        // FrameManageship2PlClient manage = new FrameManageship2PlClient();
-        // FrameManageship2PlServer manage = new FrameManageship2PlServer();
+         //FrameManageship2PlClient manage = new FrameManageship2PlClient();
+        //FrameManageship2PlServer manage = new FrameManageship2PlServer();
         FrameManageship manage = new FrameManageship();
-        // FrameMenu menu = new FrameMenu();
+        FrameMenu menu = new FrameMenu();
         manage.setVisible(true);
-        // menu.setVisible(true);
+        //menu.setVisible(true);
     }
 }

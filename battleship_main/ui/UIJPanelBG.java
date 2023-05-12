@@ -1,12 +1,13 @@
 package battleship_main.ui;
 
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class UIJPanelBG extends JPanel{
+public class UIJPanelBG extends JPanel {
     private static final long serialVersionUID = 1L;
     Image immagine;
 
@@ -28,17 +29,14 @@ public class UIJPanelBG extends JPanel{
         g.drawImage(immagine, 0, 0, null);
     }
 
-    public static ImageIcon createImageIcon(final String path) {
-        InputStream is = ImageLoader.class.getResourceAsStream(path);
-        int length;
-        try {
-            length = is.available();
-            byte[] data = new byte[length];
-            is.read(data);
-            is.close();
-            ImageIcon ii = new ImageIcon(data);
-            return ii;
+    public static ImageIcon createImageIcon(String imagePath) {
+        try (InputStream is = UIJPanelBG.class.getResourceAsStream(imagePath)) {
+            BufferedImage image = ImageIO.read(is);
+            return new ImageIcon(image);
         } catch (IOException e) {
+            {
+                e.printStackTrace();
+            }
         }
         return null;
     }

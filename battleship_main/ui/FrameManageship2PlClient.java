@@ -31,7 +31,7 @@ public class FrameManageship2PlClient extends JFrame implements ActionListener, 
     UIMapPanel mapPanel;
 
     public FrameManageship2PlClient() {
-        super("Battaglia Navale - Pirate Edition");
+        super("Battleship ");
         mappa = new Mappa();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -80,8 +80,8 @@ public class FrameManageship2PlClient extends JFrame implements ActionListener, 
         else if (testo.equals("random")) {
             random();
         }
-        // GIOCA
-        else if (testo.equals("gioca")) {
+        // PLAY
+        else if (testo.equals("play")) {
             gioca();
 
         } else {
@@ -112,7 +112,7 @@ public class FrameManageship2PlClient extends JFrame implements ActionListener, 
                     dim = 1;
                     break;
             }
-            if (choosePan.direction[0].isSelected())// 0=orizzontale 1=verticale
+            if (choosePan.direction[0].isSelected())
                 dir = 0;
             else
                 dir = 1;
@@ -249,7 +249,7 @@ public class FrameManageship2PlClient extends JFrame implements ActionListener, 
     class SendShipsAdv extends Thread {
         public void run() {
             try {
-                Socket s = new Socket("localhost", 8081);
+                Socket s = new Socket("localhost", 8080);
                 ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
                 output.writeObject(myShips);
                 s.close();

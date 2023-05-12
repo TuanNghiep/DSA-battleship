@@ -74,99 +74,99 @@ public class Mappa {
 	public int[] insertShipRandom(Random random, int dimention) {
 		boolean insert;
 		int[] dati = new int[4];
-		int direction, riga, colonna;
+		int direction, row, column;
 		do {
 			insert = true;
 			direction = random.nextInt(2); // 0=Horizontal, 1=Vertical
 			if (direction == 0) {
-				colonna = random.nextInt(DIM_MAPPA - dimention + 1);
-				riga = random.nextInt(DIM_MAPPA);
+				column = random.nextInt(DIM_MAPPA - dimention + 1);
+				row = random.nextInt(DIM_MAPPA);
 			} else {
-				colonna = random.nextInt(DIM_MAPPA);
-				riga = random.nextInt(DIM_MAPPA - dimention + 1);
+				column = random.nextInt(DIM_MAPPA);
+				row = random.nextInt(DIM_MAPPA - dimention + 1);
 			}
 			if (direction == 0)
-				insert = checkHorizontal(riga, colonna, dimention);
+				insert = checkHorizontal(row, column, dimention);
 			else
-				insert = checkVertical(riga, colonna, dimention);
+				insert = checkVertical(row, column, dimention);
 		} while (!insert);
 		if (direction == 0) {
-			ShipPos n = new ShipPos(riga, colonna, riga, colonna + dimention - 1);
+			ShipPos n = new ShipPos(row, column, row, column + dimention - 1);
 			listaNavi.add(n);
 		} else {
-			ShipPos n = new ShipPos(riga, colonna, riga + dimention - 1, colonna);
+			ShipPos n = new ShipPos(row, column, row + dimention - 1, column);
 			listaNavi.add(n);
 		}
 		for (int i = 0; i < dimention; i++) {
 			if (direction == 0) {
-				mappa[riga][colonna + i] = SHIP;
+				mappa[row][column + i] = SHIP;
 			} else
-				mappa[riga + i][colonna] = SHIP;
+				mappa[row + i][column] = SHIP;
 		}
-		dati[0] = riga;
-		dati[1] = colonna;
+		dati[0] = row;
+		dati[1] = column;
 		dati[2] = dimention;
 		dati[3] = direction;
 		return dati;
 	}
 
-	public boolean checkVertical(int riga, int colonna, int dimention) {
-		if (riga != 0)
-			if (mappa[riga - 1][colonna] == SHIP)
+	public boolean checkVertical(int row, int column, int dimention) {
+		if (row != 0)
+			if (mappa[row - 1][column] == SHIP)
 				return false;
-		if (riga != DIM_MAPPA - dimention)// la ship finisce sul bordo
-			if (mappa[riga + dimention][colonna] == SHIP)
+		if (row != DIM_MAPPA - dimention)// la ship finisce sul bordo
+			if (mappa[row + dimention][column] == SHIP)
 				return false;
 		for (int i = 0; i < dimention; i++) {
-			if (colonna != 0)
-				if (mappa[riga + i][colonna - 1] == SHIP)
+			if (column != 0)
+				if (mappa[row + i][column - 1] == SHIP)
 					return false;
-			if (colonna != DIM_MAPPA - 1)
-				if (mappa[riga + i][colonna + 1] == SHIP)
+			if (column != DIM_MAPPA - 1)
+				if (mappa[row + i][column + 1] == SHIP)
 					return false;
-			if (mappa[riga + i][colonna] == SHIP)
+			if (mappa[row + i][column] == SHIP)
 				return false;
 		}
 		return true;
 	}
 
-	public boolean checkHorizontal(int riga, int colonna, int dimention) {
-		if (colonna != 0)
-			if (mappa[riga][colonna - 1] == SHIP)
+	public boolean checkHorizontal(int row, int column, int dimention) {
+		if (column != 0)
+			if (mappa[row][column - 1] == SHIP)
 				return false;
-		if (colonna != DIM_MAPPA - dimention)
-			if (mappa[riga][colonna + dimention] == SHIP)
+		if (column != DIM_MAPPA - dimention)
+			if (mappa[row][column + dimention] == SHIP)
 				return false;
 		for (int i = 0; i < dimention; i++) {
-			if (riga != 0)
-				if (mappa[riga - 1][colonna + i] == SHIP)
+			if (row != 0)
+				if (mappa[row - 1][column + i] == SHIP)
 					return false;
-			if (riga != DIM_MAPPA - 1)
-				if (mappa[riga + 1][colonna + i] == SHIP)
+			if (row != DIM_MAPPA - 1)
+				if (mappa[row + 1][column + i] == SHIP)
 					return false;
-			if (mappa[riga][colonna + i] == SHIP)
+			if (mappa[row][column + i] == SHIP)
 				return false;
 		}
 		return true;
 	}
 
 	public boolean hitt(Position p) {
-		int riga = p.getCoordX();
-		int colonna = p.getCoordY();
-		if (mappa[riga][colonna] == SHIP) {
-			mappa[riga][colonna] = HIT;
+		int row = p.getCoordX();
+		int column = p.getCoordY();
+		if (mappa[row][column] == SHIP) {
+			mappa[row][column] = HIT;
 			return true;
 		}
-		mappa[riga][colonna] = ACQUA;
+		mappa[row][column] = ACQUA;
 		return false;
 	}
 
 	public ShipPos sunk(Position p) {
-		int riga = p.getCoordX();
+		int row = p.getCoordX();
 		int col = p.getCoordY();
 		ShipPos ship = null;
 		for (int i = 0; i < listaNavi.size(); i++) {
-			if (listaNavi.get(i).checkCoord(riga, col)) {
+			if (listaNavi.get(i).checkCoord(row, col)) {
 				ship = listaNavi.get(i);
 				break;
 			}
