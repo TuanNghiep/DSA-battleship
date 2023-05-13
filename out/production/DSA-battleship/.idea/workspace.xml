@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f5934193-9c32-4239-9d0d-bee11f94a3fc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyLeft3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyLeft4a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyLeft4b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyTop3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyTop4a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyTop4b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipFootLeft3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipFootLeft4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipFootTop3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipFootTop4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadLeft3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadLeft4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadTop3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadTop4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battleship/res/images/wood.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/BattleShip.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/BattleShip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/Computer.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/Computer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/Mappa.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/Mappa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/Nave.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/Nave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/Posizione.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/Posizione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/Report.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameBattle.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameBattle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameBattle2Pl.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameBattle2Pl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship2PlClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship2PlClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship2PlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameManageship2PlServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/FrameSplashscreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/FrameSplashscreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/UIJPanelBG.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/UIJPanelBG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/UIManagePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/UIManagePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/UIMapPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/UIMapPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/battleship/ui/UIStatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/battleship/ui/UIStatPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/battlePaper.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/battlePaper.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/11.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/12.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/13.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/14.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/14.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/15.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/16.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/16.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/17.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/17.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/18.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/18.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/19.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/19.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/20.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/7.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/8.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/coord/9.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/coord/9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/cpu.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/cpu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/fireButton.gif" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/fireButton.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/gioca.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/gioca.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/giocaOver.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/giocaOver.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/loading.gif" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/loading.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/manage.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/manage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/managePanel.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/managePanel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/managePanelLabel.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/managePanelLabel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/player.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/player.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/random.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/random.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/randomOver.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/randomOver.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/reset.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/reset.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/resetOver.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/resetOver.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/sea.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/sea.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/ship1.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/ship1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/ship2.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/ship2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/ship3.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/ship3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/ship4.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/ship4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipBodyLeft.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyLeft.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipBodyTop.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipBodyTop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipDim1orizz.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipDim1orizz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipDim1vert.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipDim1vert.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipFootLeft.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipFootLeft.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipFootTop.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipFootTop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipHeadLeft.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadLeft.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/shipHeadTop.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/shipHeadTop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/splashimage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/splashimage.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/target.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/target.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/wood.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/wreck.gif" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/wreck.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battleship/res/images/wreck.png" beforeDir="false" afterPath="$PROJECT_DIR$/battleship/res/images/wreck.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/DSA-battleship.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/_config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/battleImg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/battlePaper.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/coord/9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/cpu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/fireButton.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/gioca.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/giocaOver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/grayButton.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/grayButtonOpaque.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/loading.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/manage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/managePanel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/managePanelLabel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/player.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/random.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/randomOver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/reset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/resetOver.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/sea.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/ship1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/ship2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/ship3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/ship4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyLeft3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyLeft4a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyLeft4b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyTop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyTop3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyTop4a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipBodyTop4b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipDim1orizz.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipDim1vert.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootLeft3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootLeft4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootTop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootTop3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipFootTop4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadLeft.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadLeft3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadLeft4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadTop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadTop3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/shipHeadTop4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/target.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/wood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/wreck.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/res/images/wreck.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/screenshots/screenshot1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/screenshots/screenshot2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DSA-battleship/battleship/screenshots/screenshot3.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="new-branch" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/battleship" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/battleship" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2OsSi1xO7CG2Sae6vcDv2Jmvx9i" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "UI_DESIGNER_EDITOR_MODE.LayeredImageEditor-LayersManager-LayeredImageEditorPanel.SHOW": "false",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/WIN 10/IdeaProjects/demo3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "vcs.Git",
+    "two.files.diff.last.used.file": "C:/Users/WIN 10/IdeaProjects/DSA-battleship/DSA-battleship.iml",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\WIN 10\IdeaProjects\DSA-battleship\battleship\res\images" />
+      <recent name="C:\Users\WIN 10\IdeaProjects\DSA-battleship\battleship" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\WIN 10\IdeaProjects\DSA-battleship\battleship\res\images" />
+      <recent name="C:\Users\WIN 10\IdeaProjects\DSA-battleship\battleship\res\images\coord" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.BattleShip">
+    <configuration name="BattleShip" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="battleship.battleship.ui.BattleShip" />
+      <module name="DSA-battleship" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="battleship.battleship.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="battleship_main.Main" />
+      <module name="DSA-battleship" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="battleship_main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BattleShip" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f5934193-9c32-4239-9d0d-bee11f94a3fc" name="Changes" comment="" />
+      <created>1682347919804</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682347919804</updated>
+      <workItem from="1682347923133" duration="4694000" />
+      <workItem from="1682387543807" duration="577000" />
+      <workItem from="1682398923154" duration="369000" />
+      <workItem from="1682666451579" duration="4454000" />
+      <workItem from="1682688049116" duration="13812000" />
+      <workItem from="1682758516531" duration="5884000" />
+      <workItem from="1682765747375" duration="1225000" />
+      <workItem from="1682834302704" duration="2692000" />
+      <workItem from="1682859925767" duration="5805000" />
+      <workItem from="1683079424117" duration="4885000" />
+      <workItem from="1683099737494" duration="4629000" />
+      <workItem from="1683121878370" duration="8237000" />
+      <workItem from="1683130585168" duration="2444000" />
+      <workItem from="1683160694585" duration="2938000" />
+      <workItem from="1683178557089" duration="1256000" />
+      <workItem from="1683188404454" duration="5546000" />
+      <workItem from="1683208530586" duration="8207000" />
+      <workItem from="1683337210861" duration="47000" />
+      <workItem from="1683467839251" duration="138000" />
+      <workItem from="1683468258412" duration="7711000" />
+      <workItem from="1683518305738" duration="641000" />
+      <workItem from="1683609673245" duration="779000" />
+      <workItem from="1683682640131" duration="6012000" />
+      <workItem from="1683691620397" duration="2149000" />
+      <workItem from="1683905881886" duration="409000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="new-branch" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="981e53c4-0b87-419c-9d9f-1249ee1d7632">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="fd20ea38-084d-4ae0-a3f7-eb24971884f6">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
