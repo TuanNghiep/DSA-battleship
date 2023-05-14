@@ -26,7 +26,7 @@ public class UIManagePanel extends UIJPanelBG{
         JLabel managePanelLabel = new JLabel();
         managePanelLabel.setIcon(new ImageIcon(getClass().getResource("/res/images/managePanelLabel.png")));
         managePanelLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        managePanelLabel.setBounds(0, 30, 280, 35);
+        managePanelLabel.setBounds(25, 30, 280, 35);
         // RadioButton per la selezione delle navi
         ship = new JRadioButtonMenuItem[4];
         radioButtonShip = new ButtonGroup();
@@ -46,35 +46,35 @@ public class UIManagePanel extends UIJPanelBG{
         counterLabel[2] = new JLabel("3");
         counterLabel[3] = new JLabel("4");
         for (int i = 0; i < ship.length; i++) {
-            ship[i].setBounds(0, 25 + (i * 60), 160, 40);
+            ship[i].setBounds(0+20, 10 + (i * 60), 170, 60);
             radioButtonShip.add(ship[i]);
             shipSelect.add(ship[i]);
             ship[i].setOpaque(false);
-            counterLabel[i].setBounds(220, 125 + (i * 60), 23, 19);
+            counterLabel[i].setBounds(230+20, 120 + (i * 60), 23, 25);
             counterLabel[i].setOpaque(false);
             this.add(counterLabel[i]);
             xLabel[i] = new JLabel("x");
-            xLabel[i].setBounds(205, 125 + (i * 60), 23, 19);
+            xLabel[i].setBounds(230, 120 + (i * 60), 23, 25);
             xLabel[i].setOpaque(false);
             this.add(xLabel[i]);
         }
         ship[0].setSelected(true);
-        // RadioButton per la selezione della direzione
-        // Verticale/Orizzontale
+        // RadioButton for direction selection
+        // Vertical/Horizontal
         direction = new JRadioButton[2];
         ButtonGroup radioButtonDirection = new ButtonGroup();
-        direction[0] = new JRadioButton("Orizzontale");
-        direction[0].setBounds(0, 260, 105, 20);
+        direction[0] = new JRadioButton("Horizontal");
+        direction[0].setBounds(40, 260, 105, 20);
         radioButtonDirection.add(direction[0]);
         direction[0].setSelected(true);
         direction[0].setOpaque(false);
         shipSelect.add(direction[0]);
-        direction[1] = new JRadioButton("Verticale");
-        direction[1].setBounds(110, 260, 105, 20);
+        direction[1] = new JRadioButton("Vertical");
+        direction[1].setBounds(130, 260, 105, 20);
         direction[1].setOpaque(false);
         radioButtonDirection.add(direction[1]);
         shipSelect.add(direction[1]);
-        // Bottone Random
+        // Button Random
         ImageIcon randomImg = new ImageIcon(getClass().getResource("/res/images/random.png"));
         ImageIcon randomImgOver = new ImageIcon(getClass().getResource("/res/images/randomOver.png"));
         random = new JButton(randomImg);
@@ -83,10 +83,10 @@ public class UIManagePanel extends UIJPanelBG{
         random.setOpaque(false);
         random.setBorderPainted(false);
         random.setContentAreaFilled(false);
-        random.setBounds(30, 380, 200, 30);
+        random.setBounds(60, 380, 200, 40);
         random.setCursor(cursor);
         random.setText("random");
-        // Bottone Reset
+        // Button Reset
         ImageIcon resetImg = new ImageIcon(getClass().getResource("/res/images/reset.png"));
         ImageIcon resetImgOver = new ImageIcon(getClass().getResource("/res/images/resetOver.png"));
         reset = new JButton(resetImg);
@@ -95,21 +95,11 @@ public class UIManagePanel extends UIJPanelBG{
         reset.setOpaque(false);
         reset.setBorderPainted(false);
         reset.setContentAreaFilled(false);
-        reset.setBounds(10, 500, 137, 102);
+        reset.setBounds(40, 500, 137, 102);
         reset.setCursor(cursor);
         reset.setText("reset");
 
-        Load = new JButton(resetImg);
-        Load.setRolloverIcon(resetImgOver);
-        Load.setBorder(null);
-        Load.setOpaque(false);
-        Load.setBorderPainted(false);
-        Load.setContentAreaFilled(false);
-        Load.setBounds(500, 900, 1370, 1025);
-        Load.setCursor(cursor);
-        Load.setText("Load");
-
-        // Bottone Gioca
+        // Button Gioca
         ImageIcon giocaImg = new ImageIcon(getClass().getResource("/res/images/gioca.png"));
         ImageIcon giocaImgOver = new ImageIcon(getClass().getResource("/res/images/giocaOver.png"));
         gioca = new JButton(giocaImg);
@@ -118,7 +108,7 @@ public class UIManagePanel extends UIJPanelBG{
         gioca.setOpaque(false);
         gioca.setBorderPainted(false);
         gioca.setContentAreaFilled(false);
-        gioca.setBounds(150, 500, 137, 102);
+        gioca.setBounds(200, 500, 137, 102);
         gioca.setCursor(cursor);
         gioca.setText("gioca");
         gioca.setEnabled(false);
@@ -128,7 +118,6 @@ public class UIManagePanel extends UIJPanelBG{
         this.add(random);
         this.add(gioca);
         this.add(reset);
-        this.add(Load);
 
     }
 }

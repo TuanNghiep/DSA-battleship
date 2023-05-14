@@ -1,8 +1,7 @@
 package battleship_main.ui;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,19 +9,11 @@ import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 
 public class FrameBattle2Pl implements ActionListener, KeyListener{
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
-    JFrame frame = new JFrame("Battléhip");
+    JFrame frame = new JFrame("Battleship");
     JPanel comandPanel = new JPanel();
     Cursor cursorDefault = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     UIJPanelBG panel = new UIJPanelBG(

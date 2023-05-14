@@ -11,8 +11,7 @@ public class Computer {
 	private Position ultimoColpo;
 	private String direzione;
 	private Mappa plMap;
-	private Position primohit;// posizione in cui colpisco per la priam
-									// volta la nave
+	private Position primohit;// location where you first hit the ship
 
 	public Computer(Mappa mappaAvversario) {
 		listaColpi = new LinkedList<Position>();
@@ -20,7 +19,7 @@ public class Computer {
 		for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
 			for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
 				Position p = new Position(i, j);
-				listaColpi.add(p);// Inizializza colpi possibili
+				listaColpi.add(p);// initialize possible hits
 			}
 		}
 		r = new Random();
@@ -50,7 +49,7 @@ public class Computer {
 				}
 			}
 			return rep;
-		} // Sparo randomaticamente
+		} // shoot randomly
 		if (hit == 1) {
 			boolean colpo = sparaMirato1();
 			ShipPos sunk;
@@ -90,7 +89,7 @@ public class Computer {
 			}
 			return rep;
 		}
-		return null;// irragiungibile
+		return null;// unattainable
 	}
 
 	private boolean sparaRandom() {
@@ -114,8 +113,7 @@ public class Computer {
 				listaColpi.remove(p);
 				errore = false;
 			}
-		} while (errore);// verifica che non si cerchi di sparare su una
-							// posizione già Hit
+		} while (errore);// Verify that you are not attempting to fire on an already hit position
 		ultimoColpo = p;
 		return plMap.hitt(p);
 	}
@@ -147,7 +145,7 @@ public class Computer {
 		int Xfin = sunk.getXfin();
 		int Yin = sunk.getYin();
 		int Yfin = sunk.getYfin();
-		if (Xin == Xfin) {// orizzontale
+		if (Xin == Xfin) {// horizontal
 			if (Yin != 0) {
 				Position p = new Position(Xin, Yin - 1);
 				if (!plMap.acqua(p)) {
@@ -182,7 +180,7 @@ public class Computer {
 					}
 				}
 			}
-		} else {// verticale
+		} else {// vertical
 			if (Xin != 0) {
 				Position p = new Position(Xin - 1, Yin);
 				if (!plMap.acqua(p)) {

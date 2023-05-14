@@ -1,7 +1,7 @@
 package battleship_main.ui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,16 +13,13 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
 
 
 public class FrameManageship2PlClient extends JFrame implements ActionListener, KeyListener{
     private static final long serialVersionUID = 2923975805665801740L;
     private static final int NUM_NAVI = 10;
-    LinkedList<int[]> myShips;// contiene le navi inserite,serve per
-    LinkedList<int[]> advShips; // costruire la frameBattle
+    LinkedList<int[]> myShips;// contains the inserted vessels
+    LinkedList<int[]> advShips; // build the frameBattle
     boolean finito = false;
     int naviInserite = 0;
     int[] counterShip = { 1, 2, 3, 4 };
@@ -52,7 +49,7 @@ public class FrameManageship2PlClient extends JFrame implements ActionListener, 
         container.add(choosePan);
         mapPanel.setBounds(25, 25, 600, 620);
         choosePan.setBounds(580, 25, 280, 800);
-        // Pannello interno contenente le navi da posizionare.
+        // Internal panel containing the ships to be placed.
         this.add(container);
         for (int i = 0; i < mapPanel.button.length; i++) {
             for (int j = 0; j < mapPanel.button[i].length; j++) {

@@ -26,15 +26,15 @@ public class UIMapPanel extends JPanel{
         this.setSize(X, Y);
         this.setLayout(null);
         this.setOpaque(false);
-        // Etichetta
+        // Label
         label = new JLabel();
         label.setIcon(new ImageIcon(getClass().getResource(("/res/images/" + etichetta + ".png"))));
         this.add(label);
-        label.setBounds(50, 0, 550, 60);
-        // Pannello contenente le caselle
+        label.setBounds(50, -20, 550, 80);
+        // Panel containing boxes
         sea = new UIJPanelBG(
                 Toolkit.getDefaultToolkit().createImage(FrameManageship.class.getResource("/res/images/sea.png")));
-        sea.setBounds(34, 45, 550, 550);
+        sea.setBounds(34, 45, 550, 600);
         button = new JButton[numC][numC];
         ImageIcon gray = new ImageIcon(getClass().getResource("/res/images/grayButtonOpaque.png"));
         for (int i = 0; i < numC; i++) {
@@ -67,16 +67,16 @@ public class UIMapPanel extends JPanel{
         grid.add(sea);
         COr = new JLabel[10];
         CVer = new JLabel[10];
-        // For che caricare le immagini delle coordinate
+        // For that load the images of the coordinates
         for (int i = 0; i < 10; i++) {
             COr[i] = new JLabel();
             CVer[i] = new JLabel();
             grid.add(COr[i]);
             grid.add(CVer[i]);
             CVer[i].setIcon(new ImageIcon(getClass().getResource((("/res/images/coord/" + (i + 1) + ".png")))));
-            CVer[i].setBounds(veroff, oroff, dimC, dimC);
+            CVer[i].setBounds(veroff-10, oroff+10, dimC+20, dimC);
             COr[i].setIcon(new ImageIcon(getClass().getResource((("/res/images/coord/" + (i + 11) + ".png")))));
-            COr[i].setBounds(oroff, veroff, dimC, dimC);
+            COr[i].setBounds(oroff-5, veroff-5, dimC+20, dimC+10);
             oroff += 50;
         }
 
@@ -99,42 +99,106 @@ public class UIMapPanel extends JPanel{
                 button[x][y].setDisabledIcon(shipDim1orizz);
             else if (dir == 1)
                 button[x][y].setDisabledIcon(shipDim1vert);
-        } else {
-            ImageIcon shipHeadLeft = new ImageIcon(
-                    getClass().getResource("/res/images/shipHeadLeft.png"));
-            ImageIcon shipHeadTop = new ImageIcon(
-                    getClass().getResource("/res/images/shipHeadTop.png"));
-            ImageIcon shipBodyLeft = new ImageIcon(
-                    getClass().getResource("/res/images/shipBodyLeft.png"));
-            ImageIcon shipBodyTop = new ImageIcon(
-                    getClass().getResource("/res/images/shipBodyTop.png"));
-            ImageIcon shipFootLeft = new ImageIcon(
-                    getClass().getResource("/res/images/shipFootLeft.png"));
-            ImageIcon shipFootTop = new ImageIcon(
-                    getClass().getResource("/res/images/shipFootTop.png"));
+        } else if (dim == 2) {
+            ImageIcon shipHeadLeft2 = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft.png"));
+            ImageIcon shipFootLeft2 = new ImageIcon(getClass().getResource("/res/images/shipFootLeft.png"));
+            ImageIcon shipHeadTop2 = new ImageIcon(getClass().getResource("/res/images/shipHeadTop.png"));
+            ImageIcon shipFootTop2 = new ImageIcon(getClass().getResource("/res/images/shipFootTop.png"));
+            if (dir == 0) {
+                // direzione orizzontale
+                // Ship Head
+                button[x][y].setDisabledIcon(shipFootLeft2);
+                button[x][y].setEnabled(false);
+                // Ship Body
+
+                // Ship Foot
+                button[x][y + dim - 1].setDisabledIcon(shipHeadLeft2);
+                button[x][y + dim - 1].setEnabled(false);
+            } else {
+                // direzione verticale
+                // Ship Head
+                button[x][y].setDisabledIcon(shipFootTop2);
+                button[x][y].setEnabled(false);
+
+                // Ship Foot
+                button[x + dim - 1][y].setDisabledIcon(shipHeadTop2);
+                button[x + dim - 1][y].setEnabled(false);
+            }
+
+
+        } else if (dim == 3) {
+            ImageIcon shipHeadLeft = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft3.png"));
+            ImageIcon shipBodyLeft = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft3.png"));
+            ImageIcon shipFootLeft = new ImageIcon(getClass().getResource("/res/images/shipFootLeft3.png"));
+            ImageIcon shipHeadTop = new ImageIcon(getClass().getResource("/res/images/shipHeadTop3.png"));
+            ImageIcon shipBodyTop = new ImageIcon(getClass().getResource("/res/images/shipBodyTop3.png"));
+            ImageIcon shipFootTop = new ImageIcon(getClass().getResource("/res/images/shipFootTop3.png"));
+
             if (dir == 0) {// direzione orizzontale
                 // Ship Head
                 button[x][y].setDisabledIcon(shipHeadLeft);
                 button[x][y].setEnabled(false);
                 // Ship Body
-                for (int i = 1; i < dim - 1; i++) {
-                    button[x][y + i].setDisabledIcon(shipBodyLeft);
-                    button[x][y + i].setEnabled(false);
-                }
+                button[x][y + 1].setDisabledIcon(shipBodyLeft);
+                button[x][y + 1].setEnabled(false);
+
                 // Ship Foot
                 button[x][y + dim - 1].setDisabledIcon(shipFootLeft);
                 button[x][y + dim - 1].setEnabled(false);
-            } else { // direzione verticale
+            } else {
+                // direzione verticale
                 // Ship Head
                 button[x][y].setDisabledIcon(shipHeadTop);
                 button[x][y].setEnabled(false);
                 // Ship Body
-                for (int i = 1; i < dim - 1; i++) {
-                    button[x + i][y].setDisabledIcon(shipBodyTop);
-                    button[x + i][y].setEnabled(false);
-                }
+                button[x + 1][y].setDisabledIcon(shipBodyTop);
+                button[x + 1][y].setEnabled(false);
+
                 // Ship Foot
                 button[x + dim - 1][y].setDisabledIcon(shipFootTop);
+                button[x + dim - 1][y].setEnabled(false);
+            }
+        }
+        else if (dim == 4) {
+            ImageIcon shipHeadLeft4 = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft4.png"));
+            ImageIcon shipBodyLeft4a = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft4a.png"));
+            ImageIcon shipBodyLeft4b = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft4b.png"));
+            ImageIcon shipFootLeft4 = new ImageIcon(getClass().getResource("/res/images/shipFootLeft4.png"));
+            ImageIcon shipHeadTop4 = new ImageIcon(getClass().getResource("/res/images/shipHeadTop4.png"));
+            ImageIcon shipBodyTop4a = new ImageIcon(getClass().getResource("/res/images/shipBodyTop4a.png"));
+            ImageIcon shipBodyTop4b = new ImageIcon(getClass().getResource("/res/images/shipBodyTop4b.png"));
+            ImageIcon shipFootTop4 = new ImageIcon(getClass().getResource("/res/images/shipFootTop4.png"));
+
+            if (dir == 0) {// direzione orizzontale
+                // Ship Head
+                button[x][y].setDisabledIcon(shipHeadLeft4);
+                button[x][y].setEnabled(false);
+                // Ship Body
+                //for (int i = 1; i < dim - 1; i++) {
+                button[x][y + 1].setDisabledIcon(shipBodyLeft4a);
+                button[x][y + 1].setEnabled(false);
+                //}
+
+                button[x][y + 2].setDisabledIcon(shipBodyLeft4b);
+                button[x][y + 2].setEnabled(false);
+                // Ship Foot
+                button[x][y + dim - 1].setDisabledIcon(shipFootLeft4);
+                button[x][y + dim - 1].setEnabled(false);
+            } else {
+                // direzione verticale
+                // Ship Head
+                button[x][y].setDisabledIcon(shipFootTop4);
+                button[x][y].setEnabled(false);
+                // Ship Body
+                //for (int i = 1; i < dim - 1; i++) {
+                button[x + 1][y].setDisabledIcon(shipBodyTop4b);
+                button[x + 1][y].setEnabled(false);
+                //}
+
+                button[x + 2][y].setDisabledIcon(shipBodyTop4a);
+                button[x + 2][y].setEnabled(false);
+                // Ship Foot
+                button[x + dim - 1][y].setDisabledIcon(shipHeadTop4);
                 button[x + dim - 1][y].setEnabled(false);
             }
         }
