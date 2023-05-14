@@ -1,22 +1,22 @@
 package battleship_main.ui;
 
-import com.sun.javafx.iio.ImageLoader;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class UIJPanelBG extends JPanel{
+public class UIJPanelBG extends JPanel {
     private static final long serialVersionUID = 1L;
-    Image immagine;
+    Image image;
 
-    public UIJPanelBG(String immagine) {
-        this(UIJPanelBG.createImageIcon(immagine).getImage());
+    public UIJPanelBG(String image) {
+        this(UIJPanelBG.createImageIcon(image).getImage());
     }
 
     public UIJPanelBG(Image img) {
-        this.immagine = img;
+        this.image = img;
         Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
         setPreferredSize(size);
         setMinimumSize(size);
@@ -26,20 +26,16 @@ public class UIJPanelBG extends JPanel{
     }
 
     public void paintComponent(Graphics g) {
-        g.drawImage(immagine, 0, 0, null);
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0,getWidth(), getHeight(), this);
     }
 
-    public static ImageIcon createImageIcon(final String path) {
-        InputStream is = ImageLoader.class.getResourceAsStream(path);
-        int length;
-        try {
-            length = is.available();
-            byte[] data = new byte[length];
-            is.read(data);
-            is.close();
-            ImageIcon ii = new ImageIcon(data);
-            return ii;
+    public static ImageIcon createImageIcon(String imagePath) {
+        try (InputStream is = UIJPanelBG.class.getResourceAsStream(imagePath)) {
+            BufferedImage image = ImageIO.read(is);
+            return new ImageIcon(image);
         } catch (IOException e) {
+                e.printStackTrace();
         }
         return null;
     }

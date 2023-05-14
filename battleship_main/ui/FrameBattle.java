@@ -1,37 +1,23 @@
 package battleship_main.ui;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import battleship_main.Computer;
-import battleship_main.Mappa;
-import battleship_main.Nave;
-import battleship_main.Posizione;
-import battleship_main.Report;
-
+//Battle screen
 public class FrameBattle implements ActionListener, KeyListener {
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
-    JFrame frame = new JFrame("Battaglia Navale");
+
+    JFrame frame = new JFrame("Battleship Map");
     JPanel comandPanel = new JPanel();
     Cursor cursorDefault = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     UIJPanelBG panel = new UIJPanelBG(
-            Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/battleImg.jpg")));
+            Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/wood.png")));
     Report rep;
     Computer cpu;
     Mappa cpuMap;
@@ -50,13 +36,31 @@ public class FrameBattle implements ActionListener, KeyListener {
     Timer timer;
     boolean turnoDelCPU;
 
+    int offsetX;
+
     public FrameBattle(LinkedList<int[]> playerShips, Mappa mappa) {
+        // Add this at the beginning of the constructor
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
+        JLabel backLabel = new JLabel(backIcon);
+        backLabel.setBounds(10, 10, backIcon.getIconWidth(), backIcon.getIconHeight());
+        panel.add(backLabel);
+
+        backLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleBackClick();
+            }
+        });
+
         playerMap = mappa;
         cpu = new Computer(mappa);
         cpuMap = new Mappa();
         cpuMap.riempiMappaRandom();
-        frame.setSize(1080, 700);
-        frame.setTitle("Battaglia Navale - Pirate Edition");
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setSize(screenSize.width, screenSize.height);
+        offsetX = (frame.getWidth() - (2 * UIMapPanel.X + 30)) / 2;
+
+        frame.setTitle("Octopus Battle");
         frame.setFocusable(true);
         frame.requestFocusInWindow();
         frame.addKeyListener(this);
@@ -66,37 +70,44 @@ public class FrameBattle implements ActionListener, KeyListener {
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Pannello contenente le navi da eliminare
+
+
+        // Panel containing the ships to delete
         statPlayer = new UIStatPanel();
         statCPU = new UIStatPanel();
-        statPlayer.setBounds(30, 595, 500, 80);
-        statCPU.setBounds(570, 595, 500, 80);
-        frame.add(statPlayer);
-        frame.add(statCPU);
+
+        statPlayer.setBounds(30 + offsetX, 670, 520, 150);
+        statCPU.setBounds(600 + offsetX, 670, 520, 150);
+
+        panel.add(statPlayer);
+        panel.add(statCPU);
+
         // Target Panel
         targetPanel.setBounds(0, 0, 500, 500);
         targetPanel.setOpaque(false);
         playerPanel.sea.add(targetPanel);
 
         panel.add(playerPanel);
-        playerPanel.setBounds(0, 0, UIMapPanel.X, UIMapPanel.Y);
+        playerPanel.setBounds(offsetX + 15, 50, 535, 592);
         playerPanel.setOpaque(false);
+
         panel.add(cpuPanel);
-        cpuPanel.setBounds(540, 0, UIMapPanel.X, UIMapPanel.Y);
+        cpuPanel.setBounds(590 + offsetX, 50, 535, 592);
         panel.add(comandPanel);
+
         frame.add(panel);
         frame.setResizable(false);
         timer = new Timer(2000, new GestoreTimer());
         turnoDelCPU = false;
 
-        for (int i = 0; i < cpuPanel.bottoni.length; i++) {
-            for (int j = 0; j < cpuPanel.bottoni[i].length; j++) {
-                cpuPanel.bottoni[i][j].addActionListener(this);
-                cpuPanel.bottoni[i][j].setActionCommand("" + i + " " + j);
+        for (int i = 0; i < cpuPanel.button.length; i++) {
+            for (int j = 0; j < cpuPanel.button[i].length; j++) {
+                cpuPanel.button[i][j].addActionListener(this);
+                cpuPanel.button[i][j].setActionCommand("" + i + " " + j);
             }
         }
         for (int[] v : playerShips) {
-            playerPanel.disegnaNave(v);
+            playerPanel.disegnaShip(v);
         }
 
     }
@@ -107,7 +118,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
         ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
         String cosa;
-        if (rep.isColpita())
+        if (rep.isHit())
             cosa = "X";
         else
             cosa = "A";
@@ -118,15 +129,15 @@ public class FrameBattle implements ActionListener, KeyListener {
             mappanel = cpuPanel;
         }
         if (cosa == "X") {
-            mappanel.bottoni[x][y].setIcon(fire);
-            mappanel.bottoni[x][y].setEnabled(false);
-            mappanel.bottoni[x][y].setDisabledIcon(fire);
-            mappanel.bottoni[x][y].setCursor(cursorDefault);
+            mappanel.button[x][y].setIcon(fire);
+            mappanel.button[x][y].setEnabled(false);
+            mappanel.button[x][y].setDisabledIcon(fire);
+            mappanel.button[x][y].setCursor(cursorDefault);
         } else {
-            mappanel.bottoni[x][y].setIcon(water);
-            mappanel.bottoni[x][y].setEnabled(false);
-            mappanel.bottoni[x][y].setDisabledIcon(water);
-            mappanel.bottoni[x][y].setCursor(cursorDefault);
+            mappanel.button[x][y].setIcon(water);
+            mappanel.button[x][y].setEnabled(false);
+            mappanel.button[x][y].setDisabledIcon(water);
+            mappanel.button[x][y].setCursor(cursorDefault);
         }
 
     }
@@ -139,17 +150,17 @@ public class FrameBattle implements ActionListener, KeyListener {
         StringTokenizer st = new StringTokenizer(source.getActionCommand(), " ");
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
-        Posizione newP = new Posizione(x, y);
-        boolean colpito = cpuMap.colpisci(newP);
+        Position newP = new Position(x, y);
+        boolean colpito = cpuMap.hitt(newP);
         Report rep = new Report(newP, colpito, false);
         this.setCasella(rep, true);
         if (colpito) { // continua a giocare il player
-            Nave naveAffondata = cpuMap.affondato(newP);
+            ShipPos naveAffondata = cpuMap.sunk(newP);
             if (naveAffondata != null) {
                 numNaviCPU--;
                 setAffondato(naveAffondata);
                 if (numNaviCPU == 0) {
-                    Object[] options = { "Nuova Partita", "Esci" };
+                    Object[] options = {"Nuova Partita", "Esci"};
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("Hai Vinto!", JLabel.CENTER)),
                             "Partita Terminata", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
@@ -172,7 +183,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         frame.requestFocusInWindow();
     }
 
-    private void setAffondato(Posizione p) {
+    private void setAffondato(Position p) {
         LinkedList<String> possibilita = new LinkedList<String>();
         if (p.getCoordX() != 0) {
             possibilita.add("N");
@@ -188,31 +199,31 @@ public class FrameBattle implements ActionListener, KeyListener {
         }
         String direzione;
         boolean trovato = false;
-        Posizione posAttuale;
+        Position posAttuale;
         do {
-            posAttuale = new Posizione(p);
+            posAttuale = new Position(p);
             if (possibilita.isEmpty()) {
                 deleteShip(1, statPlayer);
-                playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
-                playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
-                playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
-                playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
+                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
+                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
+                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
+                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
                 return;
             }
             direzione = possibilita.removeFirst();
             posAttuale.sposta(direzione.charAt(0));
-            if (playerMap.colpito(posAttuale)) {
+            if (playerMap.hitt(posAttuale)) {
                 trovato = true;
             }
         } while (!trovato);
         int dim = 0;
-        posAttuale = new Posizione(p);
+        posAttuale = new Position(p);
         do {
 
-            playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
-            playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
-            playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
-            playerPanel.bottoni[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
+            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
+            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
+            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
+            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
             posAttuale.sposta(direzione.charAt(0));
 
             dim++;
@@ -222,14 +233,14 @@ public class FrameBattle implements ActionListener, KeyListener {
         deleteShip(dim, statPlayer);
     }
 
-    private void setAffondato(Nave naveAffondata) {
+    private void setAffondato(ShipPos naveAffondata) {
         int dim = 0;
         for (int i = naveAffondata.getXin(); i <= naveAffondata.getXfin(); i++) {
             for (int j = naveAffondata.getYin(); j <= naveAffondata.getYfin(); j++) {
-                cpuPanel.bottoni[i][j].setIcon(wreck);
-                cpuPanel.bottoni[i][j].setEnabled(false);
-                cpuPanel.bottoni[i][j].setDisabledIcon(wreck);
-                cpuPanel.bottoni[i][j].setCursor(cursorDefault);
+                cpuPanel.button[i][j].setIcon(wreck);
+                cpuPanel.button[i][j].setEnabled(false);
+                cpuPanel.button[i][j].setDisabledIcon(wreck);
+                cpuPanel.button[i][j].setCursor(cursorDefault);
                 dim++;
             }
         }
@@ -313,15 +324,15 @@ public class FrameBattle implements ActionListener, KeyListener {
 
             Report report = cpu.mioTurno();
             disegnaTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
-            flag = report.isColpita();
+            flag = report.isHit();
             setCasella(report, false);
-            if (report.isAffondata()) {
+            if (report.isSunk()) {
                 numNaviPlayer--;
                 setAffondato(report.getP());
                 if (numNaviPlayer == 0) {
-                    Object[] options = { "Nuova Partita", "Esci" };
-                    int n = JOptionPane.showOptionDialog(frame, (new JLabel("Hai Perso!", JLabel.CENTER)),
-                            "Partita Terminata", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                    Object[] options = {"New game", "Escape"};
+                    int n = JOptionPane.showOptionDialog(frame, (new JLabel("You Lost!", JLabel.CENTER)),
+                            "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
                         FrameManageship restart = new FrameManageship();
@@ -348,5 +359,20 @@ public class FrameBattle implements ActionListener, KeyListener {
         target.setVisible(true);
         targetPanel.add(target);
         targetPanel.repaint();
+    }
+
+
+    private void handleBackClick() {
+        int result = JOptionPane.showConfirmDialog(
+                frame,
+                "Do you want to stop the game?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (result == JOptionPane.YES_OPTION) {
+            frame.dispose();
+            // Open FrameManageship here
+        }
     }
 }

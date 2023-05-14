@@ -1,7 +1,7 @@
 package battleship_main.ui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,16 +10,12 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
-import battleship_main.Mappa;
 
 public class FrameManageship extends JFrame implements ActionListener, KeyListener{
     private static final long serialVersionUID = 2923975805665801740L;
     private static final int NUM_NAVI = 10;
-    LinkedList<int[]> playerShips;// contiene le navi inserite,serve per
-    // costruire la frameBattle
+    LinkedList<int[]> playerShips;// contains the inserted ships, is for
+    // build the frameBattle
     boolean finito = false;
     int naviInserite = 0;
     int[] counterShip = { 1, 2, 3, 4 };
@@ -28,33 +24,36 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
     UIMapPanel mapPanel;
 
     public FrameManageship() {
-        super("Battaglia Navale - Pirate Edition");
+        super("Octopus Battleship");
         mappa = new Mappa();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(900, 672);
+        this.setResizable(true);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screenSize.width, screenSize.height);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.addKeyListener(this);
+        //Icon of the game
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/images/icon.png")));
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y);
+        //Background of the game
         UIJPanelBG container = new UIJPanelBG(
-                Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/wood.jpg")));
+                Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/wood.png")));
         mapPanel = new UIMapPanel("manage");
         container.add(mapPanel);
         choosePan = new UIManagePanel();
         container.add(choosePan);
-        mapPanel.setBounds(25, 25, 600, 620);
-        choosePan.setBounds(580, 25, 280, 800);
-        // Pannello interno contenente le navi da posizionare.
+        mapPanel.setBounds((screenSize.width - 600) / 2, (screenSize.height - 700) / 2, 535, 592);
+        choosePan.setBounds(mapPanel.getX() + mapPanel.getWidth() + 50, 0, 350, 820);
+        // Internal panel containing the ships to be placed.
         this.add(container);
-        for (int i = 0; i < mapPanel.bottoni.length; i++) {
-            for (int j = 0; j < mapPanel.bottoni[i].length; j++) {
-                mapPanel.bottoni[i][j].addActionListener(this);
-                mapPanel.bottoni[i][j].setActionCommand("" + i + " " + j);
+        for (int i = 0; i < mapPanel.button.length; i++) {
+            for (int j = 0; j < mapPanel.button[i].length; j++) {
+                mapPanel.button[i][j].addActionListener(this);
+                mapPanel.button[i][j].setActionCommand("" + i + " " + j);
             }
         }
         choosePan.random.addActionListener(this);
@@ -107,19 +106,20 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                     dim = 1;
                     break;
             }
-            if (choosePan.direction[0].isSelected())// 0=orizzontale 1=verticale
+            if (choosePan.direction[0].isSelected())// 0=horizontal 1=vertical
                 dir = 0;
             else
                 dir = 1;
-            boolean inserito = mappa.inserisciNave(x, y, dim, dir);
+            boolean inserito = mappa.insertShip(x, y, dim, dir);
             if (inserito) {
-                // incrementa il numero di navi inserite
+                
+                // increment the number of inserted ships
                 naviInserite++;
-                // decrementa il contatore della nave inserita
+                // decrease the number of inserted ships
                 counterShip[nave]--;
                 choosePan.counterLabel[nave].setText("" + counterShip[nave]);
-                // disabilita la nave se sono state inserite tutte e seleziona
-                // automaticamente un'altra nave da inserire
+                
+                // disable ship if all are entered 
                 if (choosePan.counterLabel[nave].getText().equals("0")) {
                     choosePan.ship[nave].setEnabled(false);
                     for (int i = 0; i < choosePan.ship.length; i++) {
@@ -129,7 +129,7 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                         }
                     }
                 }
-                // verifica se abbiamo inserito tutte le navi (10)
+                // check if we have entered all ships (10)
                 if (naviInserite == NUM_NAVI) {
                     finito = true;
                     choosePan.direction[0].setEnabled(false);
@@ -138,7 +138,7 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                 }
                 int[] dati = { x, y, dim, dir };
                 playerShips.add(dati);
-                mapPanel.disegnaNave(dati);
+                mapPanel.disegnaShip(dati);
             }
         }
         this.requestFocusInWindow();
@@ -152,9 +152,9 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
         int[] dati = new int[4];
         for (int i = 0; i < counterShip.length; i++) {
             for (int j = 0; j < counterShip[i]; j++) {
-                dati = mappa.inserisciNaveRandom(r, counterShip.length - i);
+                dati = mappa.insertShipRandom(r, counterShip.length - i);
                 playerShips.add(dati);
-                mapPanel.disegnaNave(dati);
+                mapPanel.disegnaShip(dati);
             }
         }
         naviInserite = NUM_NAVI;
@@ -178,7 +178,7 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
         playerShips = new LinkedList<int[]>();
         for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
             for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
-                mapPanel.bottoni[i][j].setEnabled(true);
+                mapPanel.button[i][j].setEnabled(true);
             }
         }
         finito = false;
