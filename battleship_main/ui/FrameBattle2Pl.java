@@ -131,7 +131,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         Report rep = new Report(newP, hit, false);
         this.setCasella(rep, true);
         if (hit) { // continua a giocare il player
-            ShipPos shipSunk = cpuMap.sunk(newP);
+            SquidPos shipSunk = cpuMap.sunk(newP);
             if (shipSunk != null) {
                 numNaviCPU--;
                 setSunk(shipSunk);
@@ -209,7 +209,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         deleteShip(dim, statPlayer);
     }
 
-    private void setSunk(ShipPos shipSunk) {
+    private void setSunk(SquidPos shipSunk) {
         int dim = 0;
         for (int i = shipSunk.getXin(); i <= shipSunk.getXfin(); i++) {
             for (int j = shipSunk.getYin(); j <= shipSunk.getYfin(); j++) {

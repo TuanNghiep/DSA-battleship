@@ -1,11 +1,11 @@
 package battleship_main.ui;
 
-public class ShipPos {
+public class SquidPos {
 
 	private int xin, yin;
 	private int xfin, yfin;
 
-	public ShipPos(int xin, int yin, int xfin, int yfin) {
+	public SquidPos(int xin, int yin, int xfin, int yfin) {
 		this.xin = xin;
 		this.yin = yin;
 		this.xfin = xfin;
@@ -48,7 +48,7 @@ public class ShipPos {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ShipPos other = (ShipPos) obj;
+		SquidPos other = (SquidPos) obj;
 		if (xfin != other.xfin)
 			return false;
 		if (xin != other.xin)

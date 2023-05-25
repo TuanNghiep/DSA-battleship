@@ -34,7 +34,7 @@ public class FrameBattle implements ActionListener, KeyListener {
     ImageIcon wreck = new ImageIcon(getClass().getResource("/res/images/wreck.gif"));
     Cursor cursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     Timer timer;
-    boolean turnoDelCPU;
+    boolean defeatCPU;
 
     int offsetX;
 
@@ -97,8 +97,8 @@ public class FrameBattle implements ActionListener, KeyListener {
 
         frame.add(panel);
         frame.setResizable(false);
-        timer = new Timer(2000, new GestoreTimer());
-        turnoDelCPU = false;
+        timer = new Timer(2000, new TimeController());
+        defeatCPU = false;
 
         for (int i = 0; i < cpuPanel.button.length; i++) {
             for (int j = 0; j < cpuPanel.button[i].length; j++) {
@@ -112,23 +112,23 @@ public class FrameBattle implements ActionListener, KeyListener {
 
     }
 
-    void setCasella(Report rep, boolean player) {
+    void setAttack(Report rep, boolean player) {
         int x = rep.getP().getCoordX();
         int y = rep.getP().getCoordY();
         ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
         ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
-        String cosa;
+        String target;
         if (rep.isHit())
-            cosa = "X";
+            target = "X";
         else
-            cosa = "A";
+            target = "A";
         UIMapPanel mappanel;
         if (!player) {
             mappanel = playerPanel;
         } else {
             mappanel = cpuPanel;
         }
-        if (cosa == "X") {
+        if (target == "X") {
             mappanel.button[x][y].setIcon(fire);
             mappanel.button[x][y].setEnabled(false);
             mappanel.button[x][y].setDisabledIcon(fire);
@@ -144,25 +144,25 @@ public class FrameBattle implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (turnoDelCPU)
+        if (defeatCPU)
             return;
         JButton source = (JButton) e.getSource();
         StringTokenizer st = new StringTokenizer(source.getActionCommand(), " ");
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
         Position newP = new Position(x, y);
-        boolean colpito = cpuMap.hitt(newP);
-        Report rep = new Report(newP, colpito, false);
-        this.setCasella(rep, true);
-        if (colpito) { // continua a giocare il player
-            ShipPos naveAffondata = cpuMap.sunk(newP);
-            if (naveAffondata != null) {
+        boolean attack = cpuMap.hitt(newP);
+        Report rep = new Report(newP, attack, false);
+        this.setAttack(rep, true);
+        if (attack) { // Player continue to play
+            SquidPos deadSquid = cpuMap.sunk(newP);
+            if (deadSquid != null) {
                 numNaviCPU--;
-                setAffondato(naveAffondata);
+                setDeadSquid(deadSquid);
                 if (numNaviCPU == 0) {
-                    Object[] options = {"Nuova Partita", "Esci"};
-                    int n = JOptionPane.showOptionDialog(frame, (new JLabel("Hai Vinto!", JLabel.CENTER)),
-                            "Partita Terminata", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                    Object[] options = {"New Game", "Escape"};
+                    int n = JOptionPane.showOptionDialog(frame, (new JLabel("You win!", JLabel.CENTER)),
+                            "End game", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
                         FrameManageship restart = new FrameManageship();
@@ -173,67 +173,67 @@ public class FrameBattle implements ActionListener, KeyListener {
                     }
                 }
             }
-        } else { // tocca al CPU
+        } else {
 
             if (b) {
                 timer.start();
-                turnoDelCPU = true;
+                defeatCPU = true;
             }
         }
         frame.requestFocusInWindow();
     }
 
-    private void setAffondato(Position p) {
-        LinkedList<String> possibilita = new LinkedList<String>();
-        if (p.getCoordX() != 0) {
-            possibilita.add("N");
+    private void setDeadSquid(Position p) {
+        LinkedList<String> possibility = new LinkedList<String>();
+        if (p.getCoordX() != 0) { // Coordinates
+            possibility.add("N");
         }
         if (p.getCoordX() != Mappa.DIM_MAPPA - 1) {
-            possibilita.add("S");
+            possibility.add("S");
         }
         if (p.getCoordY() != 0) {
-            possibilita.add("O");
+            possibility.add("O");
         }
         if (p.getCoordY() != Mappa.DIM_MAPPA - 1) {
-            possibilita.add("E");
+            possibility.add("E");
         }
-        String direzione;
-        boolean trovato = false;
-        Position posAttuale;
+        String direction;
+        boolean findSquid = false;
+        Position currentPos;
         do {
-            posAttuale = new Position(p);
-            if (possibilita.isEmpty()) {
-                deleteShip(1, statPlayer);
-                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
-                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
-                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
-                playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
+            currentPos = new Position(p);
+            if (possibility.isEmpty()) {
+                deleteSquid(1, statPlayer);
+                playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setIcon(wreck);
+                playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setEnabled(false);
+                playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setDisabledIcon(wreck);
+                playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setCursor(cursorDefault);
                 return;
             }
-            direzione = possibilita.removeFirst();
-            posAttuale.sposta(direzione.charAt(0));
-            if (playerMap.hitt(posAttuale)) {
-                trovato = true;
+            direction = possibility.removeFirst();
+            currentPos.sposta(direction.charAt(0));
+            if (playerMap.hit(currentPos)) {
+                findSquid = true;
             }
-        } while (!trovato);
+        } while (!findSquid);
         int dim = 0;
-        posAttuale = new Position(p);
+        currentPos = new Position(p);
         do {
 
-            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setIcon(wreck);
-            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
-            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
-            playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
-            posAttuale.sposta(direzione.charAt(0));
+            playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setIcon(wreck);
+            playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setEnabled(false);
+            playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setDisabledIcon(wreck);
+            playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setCursor(cursorDefault);
+            currentPos.sposta(direction.charAt(0));
 
             dim++;
-        } while (posAttuale.getCoordX() >= 0 && posAttuale.getCoordX() <= 9 && posAttuale.getCoordY() >= 0
-                && posAttuale.getCoordY() <= 9 && !playerMap.acqua(posAttuale));
+        } while (currentPos.getCoordX() >= 0 && currentPos.getCoordX() <= 9 && currentPos.getCoordY() >= 0
+                && currentPos.getCoordY() <= 9 && !playerMap.acqua(currentPos));
 
-        deleteShip(dim, statPlayer);
+        deleteSquid(dim, statPlayer);
     }
 
-    private void setAffondato(ShipPos naveAffondata) {
+    private void setDeadSquid(SquidPos naveAffondata) {
         int dim = 0;
         for (int i = naveAffondata.getXin(); i <= naveAffondata.getXfin(); i++) {
             for (int j = naveAffondata.getYin(); j <= naveAffondata.getYfin(); j++) {
@@ -244,10 +244,10 @@ public class FrameBattle implements ActionListener, KeyListener {
                 dim++;
             }
         }
-        deleteShip(dim, statCPU);
+        deleteSquid(dim, statCPU);
     }
 
-    private void deleteShip(int dim, UIStatPanel panel) {
+    private void deleteSquid(int dim, UIStatPanel panel) {
         switch (dim) {
             case 4:
                 panel.ships[0].setEnabled(false);
@@ -315,7 +315,7 @@ public class FrameBattle implements ActionListener, KeyListener {
 
     }
 
-    public class GestoreTimer implements ActionListener {
+    public class TimeController implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent arg0) {
@@ -323,16 +323,16 @@ public class FrameBattle implements ActionListener, KeyListener {
             boolean flag;
 
             Report report = cpu.mioTurno();
-            disegnaTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
+            drawTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
             flag = report.isHit();
-            setCasella(report, false);
+            setAttack(report, false);
             if (report.isSunk()) {
                 numNaviPlayer--;
-                setAffondato(report.getP());
+                setDeadSquid(report.getP());
                 if (numNaviPlayer == 0) {
                     Object[] options = {"New game", "Escape"};
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("You Lost!", JLabel.CENTER)),
-                            "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
+                            "End game", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
                         FrameManageship restart = new FrameManageship();
@@ -344,17 +344,17 @@ public class FrameBattle implements ActionListener, KeyListener {
                 }
             }
 
-            turnoDelCPU = false;
+            defeatCPU = false;
             if (flag) {
                 timer.start();
-                turnoDelCPU = true;
+                defeatCPU = true;
             }
             frame.requestFocusInWindow();
         }
 
     }
 
-    public void disegnaTarget(int i, int j) {
+    public void drawTarget(int i, int j) {
         target.setBounds(j, i, 50, 50);
         target.setVisible(true);
         targetPanel.add(target);

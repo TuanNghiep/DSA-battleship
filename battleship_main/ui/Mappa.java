@@ -7,10 +7,10 @@ public class Mappa {
 	public static final int DIM_MAPPA = 10;
 	private final char NULL = '0', SHIP = 'X', ACQUA = 'A', HIT = 'H';
 	private char[][] mappa;
-	private LinkedList<ShipPos> listaNavi;
+	private LinkedList<SquidPos> listaNavi;
 
 	public Mappa() {
-		listaNavi = new LinkedList<ShipPos>();
+		listaNavi = new LinkedList<SquidPos>();
 		mappa = new char[DIM_MAPPA][DIM_MAPPA];
 		for (int i = 0; i < DIM_MAPPA; i++)
 			for (int j = 0; j < DIM_MAPPA; j++)
@@ -56,10 +56,10 @@ public class Mappa {
 		if (!insert)
 			return false;
 		if (dir == 0) {
-			ShipPos n = new ShipPos(x, y, x, y + dim - 1);
+			SquidPos n = new SquidPos(x, y, x, y + dim - 1);
 			listaNavi.add(n);
 		} else {
-			ShipPos n = new ShipPos(x, y, x + dim - 1, y);
+			SquidPos n = new SquidPos(x, y, x + dim - 1, y);
 			listaNavi.add(n);
 		}
 		for (int i = 0; i < dim; i++) {
@@ -91,10 +91,10 @@ public class Mappa {
 				insert = checkVertical(row, column, dimention);
 		} while (!insert);
 		if (direction == 0) {
-			ShipPos n = new ShipPos(row, column, row, column + dimention - 1);
+			SquidPos n = new SquidPos(row, column, row, column + dimention - 1);
 			listaNavi.add(n);
 		} else {
-			ShipPos n = new ShipPos(row, column, row + dimention - 1, column);
+			SquidPos n = new SquidPos(row, column, row + dimention - 1, column);
 			listaNavi.add(n);
 		}
 		for (int i = 0; i < dimention; i++) {
@@ -161,10 +161,10 @@ public class Mappa {
 		return false;
 	}
 
-	public ShipPos sunk(Position p) {
+	public SquidPos sunk(Position p) {
 		int row = p.getCoordX();
 		int col = p.getCoordY();
-		ShipPos ship = null;
+		SquidPos ship = null;
 		for (int i = 0; i < listaNavi.size(); i++) {
 			if (listaNavi.get(i).checkCoord(row, col)) {
 				ship = listaNavi.get(i);

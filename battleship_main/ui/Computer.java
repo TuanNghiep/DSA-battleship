@@ -33,7 +33,7 @@ public class Computer {
 			boolean colpo = sparaRandom();
 			rep.setP(ultimoColpo);
 			rep.setHit(colpo);
-			ShipPos sunk;
+			SquidPos sunk;
 			if (colpo) {
 				hit++;
 				sunk = plMap.sunk(ultimoColpo);
@@ -52,7 +52,7 @@ public class Computer {
 		} // shoot randomly
 		if (hit == 1) {
 			boolean colpo = sparaMirato1();
-			ShipPos sunk;
+			SquidPos sunk;
 			rep.setP(ultimoColpo);
 			rep.setHit(colpo);
 			rep.setSunk(false);
@@ -71,7 +71,7 @@ public class Computer {
 		}
 		if (hit >= 2) {
 			boolean colpo = sparaMirato2();
-			ShipPos sunk;
+			SquidPos sunk;
 			rep.setP(ultimoColpo);
 			rep.setHit(colpo);
 			rep.setSunk(false);
@@ -140,7 +140,7 @@ public class Computer {
 
 	//
 
-	private void rimuoviContorni(ShipPos sunk) {
+	private void rimuoviContorni(SquidPos sunk) {
 		int Xin = sunk.getXin();
 		int Xfin = sunk.getXfin();
 		int Yin = sunk.getYin();
