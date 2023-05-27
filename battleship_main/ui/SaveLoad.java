@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class SaveLoad {
     public void marshallLinkedListToFile(LinkedList<int[]> playerShips){   
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("playerShips.dat"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("playerOctopus.dat"));
             oos.writeObject(playerShips);
             oos.close();
         } catch (IOException e) {

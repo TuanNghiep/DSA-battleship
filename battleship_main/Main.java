@@ -1,6 +1,6 @@
 package battleship_main;
 
-import battleship_main.ui.FrameManageship;
+import battleship_main.ui.FrameManageOctopus;
 import battleship_main.ui.FrameSplashscreen;
 
 public class Main {
@@ -11,7 +11,7 @@ public class Main {
         } catch (InterruptedException e) {
         }
         intro.setVisible(true);
-        FrameManageship manage = new FrameManageship();
+        FrameManageOctopus manage = new FrameManageOctopus();
         manage.setVisible(true);
     }
 }

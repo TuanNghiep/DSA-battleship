@@ -12,18 +12,17 @@ import java.util.StringTokenizer;
 public class FrameBattle implements ActionListener, KeyListener {
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
-
     JFrame frame = new JFrame("Battleship Map");
     JPanel comandPanel = new JPanel();
     Cursor cursorDefault = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
     UIJPanelBG panel = new UIJPanelBG(
-            Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/wood.png")));
+            Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/ocean.png")));
     Report rep;
     Computer cpu;
     Mappa cpuMap;
     Mappa playerMap;
-    int numNaviPlayer = 10;
-    int numNaviCPU = 10;
+    int numOctPlayer = 10;
+    int numOctCPU = 10;
     StringBuilder sb = new StringBuilder();
     boolean b = true;
     UIStatPanel statPlayer;
@@ -38,7 +37,7 @@ public class FrameBattle implements ActionListener, KeyListener {
 
     int offsetX;
 
-    public FrameBattle(LinkedList<int[]> playerShips, Mappa mappa) {
+    public FrameBattle(LinkedList<int[]> playerOctopus, Mappa mappa) {
         // Add this at the beginning of the constructor
         ImageIcon backIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
         JLabel backLabel = new JLabel(backIcon);
@@ -55,7 +54,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         playerMap = mappa;
         cpu = new Computer(mappa);
         cpuMap = new Mappa();
-        cpuMap.riempiMappaRandom();
+        cpuMap.initializeRandomMap();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(screenSize.width, screenSize.height);
         offsetX = (frame.getWidth() - (2 * UIMapPanel.X + 30)) / 2;
@@ -72,7 +71,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        // Panel containing the ships to delete
+        // Panel containing the octopus to delete
         statPlayer = new UIStatPanel();
         statCPU = new UIStatPanel();
 
@@ -106,8 +105,8 @@ public class FrameBattle implements ActionListener, KeyListener {
                 cpuPanel.button[i][j].setActionCommand("" + i + " " + j);
             }
         }
-        for (int[] v : playerShips) {
-            playerPanel.disegnaShip(v);
+        for (int[] v : playerOctopus) {
+            playerPanel.drawOct(v);
         }
 
     }
@@ -155,17 +154,17 @@ public class FrameBattle implements ActionListener, KeyListener {
         Report rep = new Report(newP, attack, false);
         this.setAttack(rep, true);
         if (attack) { // Player continue to play
-            SquidPos deadSquid = cpuMap.sunk(newP);
+            OctPos deadSquid = cpuMap.sunk(newP);
             if (deadSquid != null) {
-                numNaviCPU--;
+                numOctCPU--;
                 setDeadSquid(deadSquid);
-                if (numNaviCPU == 0) {
+                if (numOctCPU == 0) {
                     Object[] options = {"New Game", "Escape"};
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("You win!", JLabel.CENTER)),
                             "End game", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
-                        FrameManageship restart = new FrameManageship();
+                        FrameManageOctopus restart = new FrameManageOctopus();
                         restart.setVisible(true);
                         this.frame.setVisible(false);
                     } else {
@@ -211,7 +210,7 @@ public class FrameBattle implements ActionListener, KeyListener {
                 return;
             }
             direction = possibility.removeFirst();
-            currentPos.sposta(direction.charAt(0));
+            currentPos.move(direction.charAt(0));
             if (playerMap.hit(currentPos)) {
                 findSquid = true;
             }
@@ -224,7 +223,7 @@ public class FrameBattle implements ActionListener, KeyListener {
             playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setEnabled(false);
             playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setDisabledIcon(wreck);
             playerPanel.button[currentPos.getCoordX()][currentPos.getCoordY()].setCursor(cursorDefault);
-            currentPos.sposta(direction.charAt(0));
+            currentPos.move(direction.charAt(0));
 
             dim++;
         } while (currentPos.getCoordX() >= 0 && currentPos.getCoordX() <= 9 && currentPos.getCoordY() >= 0
@@ -233,7 +232,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         deleteSquid(dim, statPlayer);
     }
 
-    private void setDeadSquid(SquidPos naveAffondata) {
+    private void setDeadSquid(OctPos naveAffondata) {
         int dim = 0;
         for (int i = naveAffondata.getXin(); i <= naveAffondata.getXfin(); i++) {
             for (int j = naveAffondata.getYin(); j <= naveAffondata.getYfin(); j++) {
@@ -250,34 +249,34 @@ public class FrameBattle implements ActionListener, KeyListener {
     private void deleteSquid(int dim, UIStatPanel panel) {
         switch (dim) {
             case 4:
-                panel.ships[0].setEnabled(false);
+                panel.optopus[0].setEnabled(false);
                 break;
             case 3:
-                if (!panel.ships[1].isEnabled())
-                    panel.ships[2].setEnabled(false);
+                if (!panel.optopus[1].isEnabled())
+                    panel.optopus[2].setEnabled(false);
                 else
-                    panel.ships[1].setEnabled(false);
+                    panel.optopus[1].setEnabled(false);
                 break;
             case 2:
-                if (!panel.ships[3].isEnabled())
-                    if (!panel.ships[4].isEnabled())
-                        panel.ships[5].setEnabled(false);
+                if (!panel.optopus[3].isEnabled())
+                    if (!panel.optopus[4].isEnabled())
+                        panel.optopus[5].setEnabled(false);
                     else
-                        panel.ships[4].setEnabled(false);
+                        panel.optopus[4].setEnabled(false);
                 else
-                    panel.ships[3].setEnabled(false);
+                    panel.optopus[3].setEnabled(false);
                 break;
             case 1:
-                if (!panel.ships[6].isEnabled())
-                    if (!panel.ships[7].isEnabled())
-                        if (!panel.ships[8].isEnabled())
-                            panel.ships[9].setEnabled(false);
+                if (!panel.optopus[6].isEnabled())
+                    if (!panel.optopus[7].isEnabled())
+                        if (!panel.optopus[8].isEnabled())
+                            panel.optopus[9].setEnabled(false);
                         else
-                            panel.ships[8].setEnabled(false);
+                            panel.optopus[8].setEnabled(false);
                     else
-                        panel.ships[7].setEnabled(false);
+                        panel.optopus[7].setEnabled(false);
                 else
-                    panel.ships[6].setEnabled(false);
+                    panel.optopus[6].setEnabled(false);
                 break;
             default:
                 break;
@@ -288,7 +287,7 @@ public class FrameBattle implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent arg0) {
         int tasto = arg0.getKeyCode();
         if (tasto == KeyEvent.VK_ESCAPE) {
-            FrameManageship manage = new FrameManageship();
+            FrameManageOctopus manage = new FrameManageOctopus();
             manage.setVisible(true);
             frame.setVisible(false);
         }
@@ -322,20 +321,20 @@ public class FrameBattle implements ActionListener, KeyListener {
             timer.stop();
             boolean flag;
 
-            Report report = cpu.mioTurno();
+            Report report = cpu.nextTurn();
             drawTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
             flag = report.isHit();
             setAttack(report, false);
-            if (report.isSunk()) {
-                numNaviPlayer--;
+            if (report.isDead()) {
+                numOctPlayer--;
                 setDeadSquid(report.getP());
-                if (numNaviPlayer == 0) {
+                if (numOctPlayer == 0) {
                     Object[] options = {"New game", "Escape"};
                     int n = JOptionPane.showOptionDialog(frame, (new JLabel("You Lost!", JLabel.CENTER)),
                             "End game", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
-                        FrameManageship restart = new FrameManageship();
+                        FrameManageOctopus restart = new FrameManageOctopus();
                         restart.setVisible(true);
                         frame.setVisible(false);
                     } else {
@@ -372,7 +371,7 @@ public class FrameBattle implements ActionListener, KeyListener {
 
         if (result == JOptionPane.YES_OPTION) {
             frame.dispose();
-            // Open FrameManageship here
+            // Open FrameManageOctopus here
         }
     }
 }

@@ -5,31 +5,31 @@ import java.util.Random;
 
 public class Mappa {
 	public static final int DIM_MAPPA = 10;
-	private final char NULL = '0', SHIP = 'X', ACQUA = 'A', HIT = 'H';
+	private final char NULL = '0', OCTOPUS = 'X', ACQUA = 'A', HIT = 'H';
 	private char[][] mappa;
-	private LinkedList<SquidPos> listaNavi;
+	private LinkedList<OctPos> listOct;
 
 	public Mappa() {
-		listaNavi = new LinkedList<SquidPos>();
+		listOct = new LinkedList<OctPos>();
 		mappa = new char[DIM_MAPPA][DIM_MAPPA];
 		for (int i = 0; i < DIM_MAPPA; i++)
 			for (int j = 0; j < DIM_MAPPA; j++)
 				mappa[i][j] = NULL;
 	}
 
-	public void riempiMappaRandom() {
+	public void initializeRandomMap() {
 		clear();
 		Random r = new Random();
-		insertShipRandom(r, 4);
-		insertShipRandom(r, 3);
-		insertShipRandom(r, 3);
-		insertShipRandom(r, 2);
-		insertShipRandom(r, 2);
-		insertShipRandom(r, 2);
-		insertShipRandom(r, 1);
-		insertShipRandom(r, 1);
-		insertShipRandom(r, 1);
-		insertShipRandom(r, 1);
+		insertOctRandom(r, 4);
+		insertOctRandom(r, 3);
+		insertOctRandom(r, 3);
+		insertOctRandom(r, 2);
+		insertOctRandom(r, 2);
+		insertOctRandom(r, 2);
+		insertOctRandom(r, 1);
+		insertOctRandom(r, 1);
+		insertOctRandom(r, 1);
+		insertOctRandom(r, 1);
 	}
 
 	private void clear() {
@@ -39,7 +39,7 @@ public class Mappa {
 
 	}
 
-	public boolean insertShip(int x, int y, int dim, int dir) {
+	public boolean insertOct(int x, int y, int dim, int dir) {
 		if (dir == 1 && x + dim > DIM_MAPPA) {
 			return false;
 		} // vertical
@@ -56,22 +56,22 @@ public class Mappa {
 		if (!insert)
 			return false;
 		if (dir == 0) {
-			SquidPos n = new SquidPos(x, y, x, y + dim - 1);
-			listaNavi.add(n);
+			OctPos n = new OctPos(x, y, x, y + dim - 1);
+			listOct.add(n);
 		} else {
-			SquidPos n = new SquidPos(x, y, x + dim - 1, y);
-			listaNavi.add(n);
+			OctPos n = new OctPos(x, y, x + dim - 1, y);
+			listOct.add(n);
 		}
 		for (int i = 0; i < dim; i++) {
 			if (dir == 0) {
-				mappa[x][y + i] = SHIP;
+				mappa[x][y + i] = OCTOPUS;
 			} else
-				mappa[x + i][y] = SHIP;
+				mappa[x + i][y] = OCTOPUS;
 		}
 		return true;
 	}
 
-	public int[] insertShipRandom(Random random, int dimention) {
+	public int[] insertOctRandom(Random random, int dimention) {
 		boolean insert;
 		int[] dati = new int[4];
 		int direction, row, column;
@@ -91,17 +91,17 @@ public class Mappa {
 				insert = checkVertical(row, column, dimention);
 		} while (!insert);
 		if (direction == 0) {
-			SquidPos n = new SquidPos(row, column, row, column + dimention - 1);
-			listaNavi.add(n);
+			OctPos n = new OctPos(row, column, row, column + dimention - 1);
+			listOct.add(n);
 		} else {
-			SquidPos n = new SquidPos(row, column, row + dimention - 1, column);
-			listaNavi.add(n);
+			OctPos n = new OctPos(row, column, row + dimention - 1, column);
+			listOct.add(n);
 		}
 		for (int i = 0; i < dimention; i++) {
 			if (direction == 0) {
-				mappa[row][column + i] = SHIP;
+				mappa[row][column + i] = OCTOPUS;
 			} else
-				mappa[row + i][column] = SHIP;
+				mappa[row + i][column] = OCTOPUS;
 		}
 		dati[0] = row;
 		dati[1] = column;
@@ -112,19 +112,19 @@ public class Mappa {
 
 	public boolean checkVertical(int row, int column, int dimention) {
 		if (row != 0)
-			if (mappa[row - 1][column] == SHIP)
+			if (mappa[row - 1][column] == OCTOPUS)
 				return false;
-		if (row != DIM_MAPPA - dimention)// la ship finisce sul bordo
-			if (mappa[row + dimention][column] == SHIP)
+		if (row != DIM_MAPPA - dimention)// finish place octopus
+			if (mappa[row + dimention][column] == OCTOPUS)
 				return false;
 		for (int i = 0; i < dimention; i++) {
 			if (column != 0)
-				if (mappa[row + i][column - 1] == SHIP)
+				if (mappa[row + i][column - 1] == OCTOPUS)
 					return false;
 			if (column != DIM_MAPPA - 1)
-				if (mappa[row + i][column + 1] == SHIP)
+				if (mappa[row + i][column + 1] == OCTOPUS)
 					return false;
-			if (mappa[row + i][column] == SHIP)
+			if (mappa[row + i][column] == OCTOPUS)
 				return false;
 		}
 		return true;
@@ -132,19 +132,19 @@ public class Mappa {
 
 	public boolean checkHorizontal(int row, int column, int dimention) {
 		if (column != 0)
-			if (mappa[row][column - 1] == SHIP)
+			if (mappa[row][column - 1] == OCTOPUS)
 				return false;
 		if (column != DIM_MAPPA - dimention)
-			if (mappa[row][column + dimention] == SHIP)
+			if (mappa[row][column + dimention] == OCTOPUS)
 				return false;
 		for (int i = 0; i < dimention; i++) {
 			if (row != 0)
-				if (mappa[row - 1][column + i] == SHIP)
+				if (mappa[row - 1][column + i] == OCTOPUS)
 					return false;
 			if (row != DIM_MAPPA - 1)
-				if (mappa[row + 1][column + i] == SHIP)
+				if (mappa[row + 1][column + i] == OCTOPUS)
 					return false;
-			if (mappa[row][column + i] == SHIP)
+			if (mappa[row][column + i] == OCTOPUS)
 				return false;
 		}
 		return true;
@@ -153,7 +153,7 @@ public class Mappa {
 	public boolean hitt(Position p) {
 		int row = p.getCoordX();
 		int column = p.getCoordY();
-		if (mappa[row][column] == SHIP) {
+		if (mappa[row][column] == OCTOPUS) {
 			mappa[row][column] = HIT;
 			return true;
 		}
@@ -161,13 +161,13 @@ public class Mappa {
 		return false;
 	}
 
-	public SquidPos sunk(Position p) {
+	public OctPos sunk(Position p) {
 		int row = p.getCoordX();
 		int col = p.getCoordY();
-		SquidPos ship = null;
-		for (int i = 0; i < listaNavi.size(); i++) {
-			if (listaNavi.get(i).checkCoord(row, col)) {
-				ship = listaNavi.get(i);
+		OctPos ship = null;
+		for (int i = 0; i < listOct.size(); i++) {
+			if (listOct.get(i).checkCoord(row, col)) {
+				ship = listOct.get(i);
 				break;
 			}
 		}
@@ -178,7 +178,7 @@ public class Mappa {
 				}
 			}
 		}
-		listaNavi.remove(ship);
+		listOct.remove(ship);
 		return ship;
 	}
 
@@ -205,11 +205,11 @@ public class Mappa {
 		return sb.toString();
 	}
 
-	public void setAdvShips(LinkedList<int[]> advShips) {
-		listaNavi.clear();
-		for (int[] a : advShips) {
-			insertShip(a[0], a[1], a[2], a[3]);
-			System.out.println("sto inserendo" + a[0] + a[1] + a[2] + a[3]);
+	public void setAdvOctopus(LinkedList<int[]> advOctopus) {
+		listOct.clear();
+		for (int[] a : advOctopus) {
+			insertOct(a[0], a[1], a[2], a[3]);
+			System.out.println("Insert Octopus" + a[0] + a[1] + a[2] + a[3]);
 		}
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++)

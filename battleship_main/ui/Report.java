@@ -3,15 +3,15 @@ package battleship_main.ui;
 public class Report {
 	private Position p;
 	private boolean hit;
-	private boolean sunk;
+	private boolean dead;
 	
 	public Report(){
 	}
 	
-	public Report(Position p, boolean hit, boolean sunk) {
+	public Report(Position p, boolean hit, boolean dead) {
 		this.p = p;
 		this.hit = hit;
-		this.sunk = sunk;
+		this.dead = dead;
 	}
 	public Position getP() {
 		return p;
@@ -25,13 +25,13 @@ public class Report {
 	public void setHit(boolean hit) {
 		this.hit = hit;
 	}
-	public boolean isSunk() {
-		return sunk;
+	public boolean isDead() {
+		return dead;
 	}
-	public void setSunk(boolean sunk) {
-		this.sunk = sunk;
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}	
 	public String toString(){
-		return "coordinate:"+p+" colpito:"+hit+" affondato:"+sunk;
+		return "coordinate:"+p+" attack:"+hit+" dead:"+ dead;
 	}
 }

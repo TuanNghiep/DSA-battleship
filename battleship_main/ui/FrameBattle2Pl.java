@@ -40,8 +40,8 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         playerMap = mappa;
         cpu = new Computer(mappa);
         cpuMap = new Mappa();
-        // cpuMap.riempiMappaRandom();
-        cpuMap.setAdvShips(advShips);
+        // cpuMap.initializeRandomMap();
+        cpuMap.setAdvOctopus(advShips);
         frame.setSize(1080, 700);
         frame.setTitle("Battleship");
         frame.setFocusable(true);
@@ -83,7 +83,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
             }
         }
         for (int[] v : playerShips) {
-            playerPanel.disegnaShip(v);
+            playerPanel.drawOct(v);
         }
 
     }
@@ -131,7 +131,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         Report rep = new Report(newP, hit, false);
         this.setCasella(rep, true);
         if (hit) { // continua a giocare il player
-            SquidPos shipSunk = cpuMap.sunk(newP);
+            OctPos shipSunk = cpuMap.sunk(newP);
             if (shipSunk != null) {
                 numNaviCPU--;
                 setSunk(shipSunk);
@@ -141,7 +141,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
                             "Partita Terminata", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
-                        FrameManageship restart = new FrameManageship();
+                        FrameManageOctopus restart = new FrameManageOctopus();
                         restart.setVisible(true);
                         this.frame.setVisible(false);
                     } else {
@@ -187,7 +187,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
                 return;
             }
             direzione = possibilita.removeFirst();
-            posAttuale.sposta(direzione.charAt(0));
+            posAttuale.move(direzione.charAt(0));
             if (playerMap.hit(posAttuale)) {
                 trovato = true;
             }
@@ -200,7 +200,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
             playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setEnabled(false);
             playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setDisabledIcon(wreck);
             playerPanel.button[posAttuale.getCoordX()][posAttuale.getCoordY()].setCursor(cursorDefault);
-            posAttuale.sposta(direzione.charAt(0));
+            posAttuale.move(direzione.charAt(0));
 
             dim++;
         } while (posAttuale.getCoordX() >= 0 && posAttuale.getCoordX() <= 9 && posAttuale.getCoordY() >= 0
@@ -209,7 +209,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
         deleteShip(dim, statPlayer);
     }
 
-    private void setSunk(SquidPos shipSunk) {
+    private void setSunk(OctPos shipSunk) {
         int dim = 0;
         for (int i = shipSunk.getXin(); i <= shipSunk.getXfin(); i++) {
             for (int j = shipSunk.getYin(); j <= shipSunk.getYfin(); j++) {
@@ -226,34 +226,34 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
     private void deleteShip(int dim, UIStatPanel panel) {
         switch (dim) {
             case 4:
-                panel.ships[0].setEnabled(false);
+                panel.optopus[0].setEnabled(false);
                 break;
             case 3:
-                if (!panel.ships[1].isEnabled())
-                    panel.ships[2].setEnabled(false);
+                if (!panel.optopus[1].isEnabled())
+                    panel.optopus[2].setEnabled(false);
                 else
-                    panel.ships[1].setEnabled(false);
+                    panel.optopus[1].setEnabled(false);
                 break;
             case 2:
-                if (!panel.ships[3].isEnabled())
-                    if (!panel.ships[4].isEnabled())
-                        panel.ships[5].setEnabled(false);
+                if (!panel.optopus[3].isEnabled())
+                    if (!panel.optopus[4].isEnabled())
+                        panel.optopus[5].setEnabled(false);
                     else
-                        panel.ships[4].setEnabled(false);
+                        panel.optopus[4].setEnabled(false);
                 else
-                    panel.ships[3].setEnabled(false);
+                    panel.optopus[3].setEnabled(false);
                 break;
             case 1:
-                if (!panel.ships[6].isEnabled())
-                    if (!panel.ships[7].isEnabled())
-                        if (!panel.ships[8].isEnabled())
-                            panel.ships[9].setEnabled(false);
+                if (!panel.optopus[6].isEnabled())
+                    if (!panel.optopus[7].isEnabled())
+                        if (!panel.optopus[8].isEnabled())
+                            panel.optopus[9].setEnabled(false);
                         else
-                            panel.ships[8].setEnabled(false);
+                            panel.optopus[8].setEnabled(false);
                     else
-                        panel.ships[7].setEnabled(false);
+                        panel.optopus[7].setEnabled(false);
                 else
-                    panel.ships[6].setEnabled(false);
+                    panel.optopus[6].setEnabled(false);
                 break;
             default:
                 break;
@@ -264,7 +264,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
     public void keyPressed(KeyEvent arg0) {
         int tasto = arg0.getKeyCode();
         if (tasto == KeyEvent.VK_ESCAPE) {
-            FrameManageship manage = new FrameManageship();
+            FrameManageOctopus manage = new FrameManageOctopus();
             manage.setVisible(true);
             frame.setVisible(false);
         }
@@ -298,11 +298,11 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
             timer.stop();
             boolean flag;
 
-            Report report = cpu.mioTurno();
+            Report report = cpu.nextTurn();
             disegnaTarget(report.getP().getCoordX() * 50, report.getP().getCoordY() * 50);
             flag = report.isHit();
             setCasella(report, false);
-            if (report.isSunk()) {
+            if (report.isDead()) {
                 numNaviPlayer--;
                 setSunk(report.getP());
                 if (numNaviPlayer == 0) {
@@ -311,7 +311,7 @@ public class FrameBattle2Pl implements ActionListener, KeyListener{
                             "Partita Terminata", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options,
                             options[1]);
                     if (n == 0) {
-                        FrameManageship restart = new FrameManageship();
+                        FrameManageOctopus restart = new FrameManageOctopus();
                         restart.setVisible(true);
                         frame.setVisible(false);
                     } else {

@@ -21,8 +21,8 @@ public class Position {
 		this.coordY = p.coordY;
 	}
 	
-	public void sposta(char dove){
-		switch(dove){
+	public void move(char direction){
+		switch(direction){
 			case 'N':
 				coordX--;
 				break;
@@ -58,7 +58,7 @@ public class Position {
 		return true;
 	}
 	
-	public boolean fuoriMappa(){
+	public boolean outOfMap(){
 		if(coordX>=Mappa.DIM_MAPPA||coordY>=Mappa.DIM_MAPPA||coordX<0||coordY<0)
 			return true;
 		return false;

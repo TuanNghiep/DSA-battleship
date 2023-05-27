@@ -6,50 +6,48 @@ import java.awt.*;
 public class UIManagePanel extends UIJPanelBG{
     private static final long serialVersionUID = 1L;
     Cursor cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-    JRadioButtonMenuItem[] ship;
+    JRadioButtonMenuItem[] octopus;
     JLabel[] counterLabel = new JLabel[4];
     JLabel[] xLabel = new JLabel[4];
-    ButtonGroup radioButtonShip;
+    ButtonGroup radioButtonOct;
     JRadioButton[] direction;
     JButton random;
     JButton reset;
-    JButton gioca;
-    JButton Load;
-
+    JButton fight;
     public UIManagePanel() {
 
         super(Toolkit.getDefaultToolkit()
-                .createImage(FrameManageship.class.getResource("/res/images/managePanel.png")));
+                .createImage(FrameManageOctopus.class.getResource("/res/images/managePanel.png")));
         this.setLayout(null);
         this.setOpaque(false);
-        // Etichetta "Posiziona le navi"
+        // Panel to hold the setting octopus
         JLabel managePanelLabel = new JLabel();
         managePanelLabel.setIcon(new ImageIcon(getClass().getResource("/res/images/managePanelLabel.png")));
         managePanelLabel.setHorizontalAlignment(SwingConstants.CENTER);
         managePanelLabel.setBounds(25, 30, 280, 35);
-        // RadioButton per la selezione delle navi
-        ship = new JRadioButtonMenuItem[4];
-        radioButtonShip = new ButtonGroup();
-        JPanel shipSelect = new JPanel(null);
-        shipSelect.setOpaque(false);
-        shipSelect.setBounds(30, 90, 200, 300);
-        ImageIcon ship1 = new ImageIcon(getClass().getResource("/res/images/ship1.png"));
-        ImageIcon ship2 = new ImageIcon(getClass().getResource("/res/images/ship2.png"));
-        ImageIcon ship3 = new ImageIcon(getClass().getResource("/res/images/ship3.png"));
-        ImageIcon ship4 = new ImageIcon(getClass().getResource("/res/images/ship4.png"));
-        ship[0] = new JRadioButtonMenuItem(ship4);
-        ship[1] = new JRadioButtonMenuItem(ship3);
-        ship[2] = new JRadioButtonMenuItem(ship2);
-        ship[3] = new JRadioButtonMenuItem(ship1);
+        // RadioButton to choose octopus
+        octopus = new JRadioButtonMenuItem[4];
+        radioButtonOct = new ButtonGroup();
+        JPanel octSelect = new JPanel(null);
+        octSelect.setOpaque(false);
+        octSelect.setBounds(30, 90, 200, 300);
+        ImageIcon oct1 = new ImageIcon(getClass().getResource("/res/images/octopus1.png"));
+        ImageIcon oct2 = new ImageIcon(getClass().getResource("/res/images/octopus2.png"));
+        ImageIcon oct3 = new ImageIcon(getClass().getResource("/res/images/octopus3.png"));
+        ImageIcon oct4 = new ImageIcon(getClass().getResource("/res/images/octopus4.png"));
+        octopus[0] = new JRadioButtonMenuItem(oct4);
+        octopus[1] = new JRadioButtonMenuItem(oct3);
+        octopus[2] = new JRadioButtonMenuItem(oct2);
+        octopus[3] = new JRadioButtonMenuItem(oct1);
         counterLabel[0] = new JLabel("1");
         counterLabel[1] = new JLabel("2");
         counterLabel[2] = new JLabel("3");
         counterLabel[3] = new JLabel("4");
-        for (int i = 0; i < ship.length; i++) {
-            ship[i].setBounds(0+20, 10 + (i * 60), 170, 60);
-            radioButtonShip.add(ship[i]);
-            shipSelect.add(ship[i]);
-            ship[i].setOpaque(false);
+        for (int i = 0; i < octopus.length; i++) {
+            octopus[i].setBounds(0+20, 10 + (i * 60), 170, 60);
+            radioButtonOct.add(octopus[i]);
+            octSelect.add(octopus[i]);
+            octopus[i].setOpaque(false);
             counterLabel[i].setBounds(230+20, 120 + (i * 60), 23, 25);
             counterLabel[i].setOpaque(false);
             this.add(counterLabel[i]);
@@ -58,7 +56,7 @@ public class UIManagePanel extends UIJPanelBG{
             xLabel[i].setOpaque(false);
             this.add(xLabel[i]);
         }
-        ship[0].setSelected(true);
+        octopus[0].setSelected(true);
         // RadioButton for direction selection
         // Vertical/Horizontal
         direction = new JRadioButton[2];
@@ -68,12 +66,12 @@ public class UIManagePanel extends UIJPanelBG{
         radioButtonDirection.add(direction[0]);
         direction[0].setSelected(true);
         direction[0].setOpaque(false);
-        shipSelect.add(direction[0]);
+        octSelect.add(direction[0]);
         direction[1] = new JRadioButton("Vertical");
         direction[1].setBounds(130, 260, 105, 20);
         direction[1].setOpaque(false);
         radioButtonDirection.add(direction[1]);
-        shipSelect.add(direction[1]);
+        octSelect.add(direction[1]);
         // Button Random
         ImageIcon randomImg = new ImageIcon(getClass().getResource("/res/images/random.png"));
         ImageIcon randomImgOver = new ImageIcon(getClass().getResource("/res/images/randomOver.png"));
@@ -102,21 +100,21 @@ public class UIManagePanel extends UIJPanelBG{
         // Button Gioca
         ImageIcon giocaImg = new ImageIcon(getClass().getResource("/res/images/gioca.png"));
         ImageIcon giocaImgOver = new ImageIcon(getClass().getResource("/res/images/giocaOver.png"));
-        gioca = new JButton(giocaImg);
-        gioca.setRolloverIcon(giocaImgOver);
-        gioca.setBorder(null);
-        gioca.setOpaque(false);
-        gioca.setBorderPainted(false);
-        gioca.setContentAreaFilled(false);
-        gioca.setBounds(200, 500, 137, 102);
-        gioca.setCursor(cursor);
-        gioca.setText("gioca");
-        gioca.setEnabled(false);
+        fight = new JButton(giocaImg);
+        fight.setRolloverIcon(giocaImgOver);
+        fight.setBorder(null);
+        fight.setOpaque(false);
+        fight.setBorderPainted(false);
+        fight.setContentAreaFilled(false);
+        fight.setBounds(200, 500, 137, 102);
+        fight.setCursor(cursor);
+        fight.setText("fight");
+        fight.setEnabled(false);
 
         this.add(managePanelLabel);
-        this.add(shipSelect);
+        this.add(octSelect);
         this.add(random);
-        this.add(gioca);
+        this.add(fight);
         this.add(reset);
 
     }

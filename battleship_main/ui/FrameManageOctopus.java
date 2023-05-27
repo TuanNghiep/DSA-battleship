@@ -11,19 +11,19 @@ import java.util.Random;
 import java.util.StringTokenizer;
 
 
-public class FrameManageship extends JFrame implements ActionListener, KeyListener{
+public class FrameManageOctopus extends JFrame implements ActionListener, KeyListener{
     private static final long serialVersionUID = 2923975805665801740L;
-    private static final int NUM_NAVI = 10;
-    LinkedList<int[]> playerShips;// contains the inserted ships, is for
+    private static final int NUM_OCT = 10;
+    LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
     // build the frameBattle
-    boolean finito = false;
-    int naviInserite = 0;
-    int[] counterShip = { 1, 2, 3, 4 };
+    boolean finish = false;
+    int insertOct = 0;
+    int[] counterOct = { 1, 2, 3, 4 };
     Mappa mappa;
     UIManagePanel choosePan;
     UIMapPanel mapPanel;
 
-    public FrameManageship() {
+    public FrameManageOctopus() {
         super("Octopus Battleship");
         mappa = new Mappa();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,14 +41,14 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
         this.setLocation(x, y);
         //Background of the game
         UIJPanelBG container = new UIJPanelBG(
-                Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/wood.png")));
+                Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/ocean.png")));
         mapPanel = new UIMapPanel("manage");
         container.add(mapPanel);
         choosePan = new UIManagePanel();
         container.add(choosePan);
         mapPanel.setBounds((screenSize.width - 600) / 2, (screenSize.height - 700) / 2, 535, 592);
         choosePan.setBounds(mapPanel.getX() + mapPanel.getWidth() + 50, 0, 350, 820);
-        // Internal panel containing the ships to be placed.
+        // Internal panel containing the octopus to be placed.
         this.add(container);
         for (int i = 0; i < mapPanel.button.length; i++) {
             for (int j = 0; j < mapPanel.button[i].length; j++) {
@@ -58,8 +58,8 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
         }
         choosePan.random.addActionListener(this);
         choosePan.reset.addActionListener(this);
-        choosePan.gioca.addActionListener(this);
-        playerShips = new LinkedList<int[]>();
+        choosePan.fight.addActionListener(this);
+        playerOctopus = new LinkedList<int[]>();
     }
 
     @Override
@@ -75,11 +75,11 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
             random();
         }
         // GIOCA
-        else if (testo.equals("gioca")) {
+        else if (testo.equals("fight")) {
             gioca();
 
         } else {
-            if (finito) {
+            if (finish) {
                 return;
             }
             StringTokenizer st = new StringTokenizer(source.getActionCommand(), " ");
@@ -88,8 +88,8 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
             int nave = -1;
             int dim = 0;
             int dir;
-            for (int i = 0; i < choosePan.ship.length; i++) {
-                if (choosePan.ship[i].isSelected())
+            for (int i = 0; i < choosePan.octopus.length; i++) {
+                if (choosePan.octopus[i].isSelected())
                     nave = i;
             }
             switch (nave) {
@@ -110,94 +110,94 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                 dir = 0;
             else
                 dir = 1;
-            boolean inserito = mappa.insertShip(x, y, dim, dir);
+            boolean inserito = mappa.insertOct(x, y, dim, dir);
             if (inserito) {
                 
-                // increment the number of inserted ships
-                naviInserite++;
-                // decrease the number of inserted ships
-                counterShip[nave]--;
-                choosePan.counterLabel[nave].setText("" + counterShip[nave]);
+                // increment the number of inserted optopus
+                insertOct++;
+                // decrease the number of inserted optopus
+                counterOct[nave]--;
+                choosePan.counterLabel[nave].setText("" + counterOct[nave]);
                 
-                // disable ship if all are entered 
+                // disable octopus if all are entered
                 if (choosePan.counterLabel[nave].getText().equals("0")) {
-                    choosePan.ship[nave].setEnabled(false);
-                    for (int i = 0; i < choosePan.ship.length; i++) {
-                        if (choosePan.ship[i].isEnabled() && !choosePan.ship[i].isSelected()) {
-                            choosePan.ship[i].setSelected(true);
+                    choosePan.octopus[nave].setEnabled(false);
+                    for (int i = 0; i < choosePan.octopus.length; i++) {
+                        if (choosePan.octopus[i].isEnabled() && !choosePan.octopus[i].isSelected()) {
+                            choosePan.octopus[i].setSelected(true);
                             break;
                         }
                     }
                 }
-                // check if we have entered all ships (10)
-                if (naviInserite == NUM_NAVI) {
-                    finito = true;
+                // check if we have entered all optopus (10)
+                if (insertOct == NUM_OCT) {
+                    finish = true;
                     choosePan.direction[0].setEnabled(false);
                     choosePan.direction[1].setEnabled(false);
-                    choosePan.gioca.setEnabled(true);
+                    choosePan.fight.setEnabled(true);
                 }
                 int[] dati = { x, y, dim, dir };
-                playerShips.add(dati);
-                mapPanel.disegnaShip(dati);
+                playerOctopus.add(dati);
+                mapPanel.drawOct(dati);
             }
         }
         this.requestFocusInWindow();
     }
 
     private void random() {
-        if (naviInserite == NUM_NAVI) {
+        if (insertOct == NUM_OCT) {
             reset();
         }
         Random r = new Random();
         int[] dati = new int[4];
-        for (int i = 0; i < counterShip.length; i++) {
-            for (int j = 0; j < counterShip[i]; j++) {
-                dati = mappa.insertShipRandom(r, counterShip.length - i);
-                playerShips.add(dati);
-                mapPanel.disegnaShip(dati);
+        for (int i = 0; i < counterOct.length; i++) {
+            for (int j = 0; j < counterOct[i]; j++) {
+                dati = mappa.insertOctRandom(r, counterOct.length - i);
+                playerOctopus.add(dati);
+                mapPanel.drawOct(dati);
             }
         }
-        naviInserite = NUM_NAVI;
-        finito = true;
-        choosePan.gioca.setEnabled(true);
-        for (int i = 0; i < choosePan.ship.length; i++) {
-            choosePan.ship[i].setEnabled(false);
+        insertOct = NUM_OCT;
+        finish = true;
+        choosePan.fight.setEnabled(true);
+        for (int i = 0; i < choosePan.octopus.length; i++) {
+            choosePan.octopus[i].setEnabled(false);
         }
         choosePan.direction[0].setEnabled(false);
         choosePan.direction[1].setEnabled(false);
-        for (int i = 0; i < counterShip.length; i++) {
-            counterShip[i] = 0;
+        for (int i = 0; i < counterOct.length; i++) {
+            counterOct[i] = 0;
             choosePan.counterLabel[i].setText("0");
         }
-        choosePan.ship[0].setSelected(true);
+        choosePan.octopus[0].setSelected(true);
 
     }
 
     private void reset() {
         mappa = new Mappa();
-        playerShips = new LinkedList<int[]>();
+        playerOctopus = new LinkedList<int[]>();
         for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
             for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
                 mapPanel.button[i][j].setEnabled(true);
             }
         }
-        finito = false;
-        choosePan.gioca.setEnabled(false);
-        for (int i = 0; i < choosePan.ship.length; i++) {
-            choosePan.ship[i].setEnabled(true);
+        finish = false;
+        choosePan.fight.setEnabled(false);
+        for (int i = 0; i < choosePan.octopus.length; i++) {
+            choosePan.octopus[i].setEnabled(true);
         }
         choosePan.direction[0].setEnabled(true);
         choosePan.direction[1].setEnabled(true);
-        for (int i = 0; i < counterShip.length; i++) {
-            counterShip[i] = i + 1;
+        for (int i = 0; i < counterOct.length; i++) {
+            counterOct[i] = i + 1;
             choosePan.counterLabel[i].setText("" + (i + 1));
         }
-        choosePan.ship[0].setSelected(true);
-        naviInserite = 0;
+        choosePan.octopus[0].setSelected(true);
+        insertOct = 0;
     }
 
     private void gioca() {
-        FrameBattle battle = new FrameBattle(playerShips, mappa);
+        FrameBattle battle = new FrameBattle(playerOctopus, mappa);
         battle.frame.setVisible(true);
         this.setVisible(false);
     }
@@ -222,7 +222,7 @@ public class FrameManageship extends JFrame implements ActionListener, KeyListen
                     }
                 }
                 if (tasto == KeyEvent.VK_ENTER) {
-                    if (finito) {
+                    if (finish) {
                         gioca();
                     }
                 }

@@ -33,7 +33,7 @@ public class UIMapPanel extends JPanel{
         label.setBounds(50, -20, 550, 80);
         // Panel containing boxes
         sea = new UIJPanelBG(
-                Toolkit.getDefaultToolkit().createImage(FrameManageship.class.getResource("/res/images/sea.png")));
+                Toolkit.getDefaultToolkit().createImage(FrameManageOctopus.class.getResource("/res/images/sea.png")));
         sea.setBounds(34, 45, 550, 600);
         button = new JButton[numC][numC];
         ImageIcon gray = new ImageIcon(getClass().getResource("/res/images/grayButtonOpaque.png"));
@@ -85,120 +85,118 @@ public class UIMapPanel extends JPanel{
 
     }
 
-    void disegnaShip(int[] dati) {
+    void drawOct(int[] dati) {
         int x = dati[0];
         int y = dati[1];
         int dim = dati[2];
         int dir = dati[3];
-        ImageIcon shipDim1orizz = new ImageIcon(
-                getClass().getResource("/res/images/shipDim1orizz.png"));
-        ImageIcon shipDim1vert = new ImageIcon(getClass().getResource("/res/images/shipDim1vert.png"));
+        ImageIcon octDim1orizz = new ImageIcon(
+                getClass().getResource("/res/images/octopusDim1orizz.png"));
+        ImageIcon octDim1vert = new ImageIcon(getClass().getResource("/res/images/octopusDim1vert.png"));
         if (dim == 1) {
             button[x][y].setEnabled(false);
             if (dir == 0)
-                button[x][y].setDisabledIcon(shipDim1orizz);
+                button[x][y].setDisabledIcon(octDim1orizz);
             else if (dir == 1)
-                button[x][y].setDisabledIcon(shipDim1vert);
+                button[x][y].setDisabledIcon(octDim1vert);
         } else if (dim == 2) {
-            ImageIcon shipHeadLeft2 = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft.png"));
-            ImageIcon shipFootLeft2 = new ImageIcon(getClass().getResource("/res/images/shipFootLeft.png"));
-            ImageIcon shipHeadTop2 = new ImageIcon(getClass().getResource("/res/images/shipHeadTop.png"));
-            ImageIcon shipFootTop2 = new ImageIcon(getClass().getResource("/res/images/shipFootTop.png"));
+            ImageIcon octHeadLeft2 = new ImageIcon(getClass().getResource("/res/images/octopusHeadLeft.png"));
+            ImageIcon octFootLeft2 = new ImageIcon(getClass().getResource("/res/images/octopusFootLeft.png"));
+            ImageIcon octHeadTop2 = new ImageIcon(getClass().getResource("/res/images/octopusHeadTop.png"));
+            ImageIcon octFootTop2 = new ImageIcon(getClass().getResource("/res/images/octopusFootTop.png"));
             if (dir == 0) {
-                // direzione orizzontale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipFootLeft2);
+                // Horizontal Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octFootLeft2);
                 button[x][y].setEnabled(false);
-                // Ship Body
+                // Octopus Body
 
-                // Ship Foot
-                button[x][y + dim - 1].setDisabledIcon(shipHeadLeft2);
+                // Octopus Foot
+                button[x][y + dim - 1].setDisabledIcon(octHeadLeft2);
                 button[x][y + dim - 1].setEnabled(false);
             } else {
-                // direzione verticale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipFootTop2);
+                // Vertical Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octFootTop2);
                 button[x][y].setEnabled(false);
 
-                // Ship Foot
-                button[x + dim - 1][y].setDisabledIcon(shipHeadTop2);
+                // Octopus Foot
+                button[x + dim - 1][y].setDisabledIcon(octHeadTop2);
                 button[x + dim - 1][y].setEnabled(false);
             }
 
 
         } else if (dim == 3) {
-            ImageIcon shipHeadLeft = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft3.png"));
-            ImageIcon shipBodyLeft = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft3.png"));
-            ImageIcon shipFootLeft = new ImageIcon(getClass().getResource("/res/images/shipFootLeft3.png"));
-            ImageIcon shipHeadTop = new ImageIcon(getClass().getResource("/res/images/shipHeadTop3.png"));
-            ImageIcon shipBodyTop = new ImageIcon(getClass().getResource("/res/images/shipBodyTop3.png"));
-            ImageIcon shipFootTop = new ImageIcon(getClass().getResource("/res/images/shipFootTop3.png"));
+            ImageIcon octHeadLeft = new ImageIcon(getClass().getResource("/res/images/octopusHeadLeft3.png"));
+            ImageIcon octBodyLeft = new ImageIcon(getClass().getResource("/res/images/octopusBodyLeft3.png"));
+            ImageIcon octFootLeft = new ImageIcon(getClass().getResource("/res/images/octopusFootLeft3.png"));
+            ImageIcon octHeadTop = new ImageIcon(getClass().getResource("/res/images/octopusHeadTop3.png"));
+            ImageIcon octBodyTop = new ImageIcon(getClass().getResource("/res/images/octopusBodyTop3.png"));
+            ImageIcon octFootTop = new ImageIcon(getClass().getResource("/res/images/octopusFootTop3.png"));
 
-            if (dir == 0) {// direzione orizzontale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipHeadLeft);
+            if (dir == 0) {// Horizontal Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octHeadLeft);
                 button[x][y].setEnabled(false);
-                // Ship Body
-                button[x][y + 1].setDisabledIcon(shipBodyLeft);
+                // Octopus Body
+                button[x][y + 1].setDisabledIcon(octBodyLeft);
                 button[x][y + 1].setEnabled(false);
 
-                // Ship Foot
-                button[x][y + dim - 1].setDisabledIcon(shipFootLeft);
+                // Octopus Foot
+                button[x][y + dim - 1].setDisabledIcon(octFootLeft);
                 button[x][y + dim - 1].setEnabled(false);
             } else {
-                // direzione verticale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipHeadTop);
+                // Vertical Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octHeadTop);
                 button[x][y].setEnabled(false);
-                // Ship Body
-                button[x + 1][y].setDisabledIcon(shipBodyTop);
+                // Octopus Body
+                button[x + 1][y].setDisabledIcon(octBodyTop);
                 button[x + 1][y].setEnabled(false);
 
-                // Ship Foot
-                button[x + dim - 1][y].setDisabledIcon(shipFootTop);
+                // Octopus Foot
+                button[x + dim - 1][y].setDisabledIcon(octFootTop);
                 button[x + dim - 1][y].setEnabled(false);
             }
         }
         else if (dim == 4) {
-            ImageIcon shipHeadLeft4 = new ImageIcon(getClass().getResource("/res/images/shipHeadLeft4.png"));
-            ImageIcon shipBodyLeft4a = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft4a.png"));
-            ImageIcon shipBodyLeft4b = new ImageIcon(getClass().getResource("/res/images/shipBodyLeft4b.png"));
-            ImageIcon shipFootLeft4 = new ImageIcon(getClass().getResource("/res/images/shipFootLeft4.png"));
-            ImageIcon shipHeadTop4 = new ImageIcon(getClass().getResource("/res/images/shipHeadTop4.png"));
-            ImageIcon shipBodyTop4a = new ImageIcon(getClass().getResource("/res/images/shipBodyTop4a.png"));
-            ImageIcon shipBodyTop4b = new ImageIcon(getClass().getResource("/res/images/shipBodyTop4b.png"));
-            ImageIcon shipFootTop4 = new ImageIcon(getClass().getResource("/res/images/shipFootTop4.png"));
+            ImageIcon octHeadLeft4 = new ImageIcon(getClass().getResource("/res/images/octopusHeadLeft4.png"));
+            ImageIcon octBodyLeft4a = new ImageIcon(getClass().getResource("/res/images/octopusBodyLeft4a.png"));
+            ImageIcon octBodyLeft4b = new ImageIcon(getClass().getResource("/res/images/octopusBodyLeft4b.png"));
+            ImageIcon octFootLeft4 = new ImageIcon(getClass().getResource("/res/images/octopusFootLeft4.png"));
+            ImageIcon octHeadTop4 = new ImageIcon(getClass().getResource("/res/images/octopusHeadTop4.png"));
+            ImageIcon octBodyTop4a = new ImageIcon(getClass().getResource("/res/images/octopusBodyTop4a.png"));
+            ImageIcon octBodyTop4b = new ImageIcon(getClass().getResource("/res/images/octopusBodyTop4b.png"));
+            ImageIcon octFootTop4 = new ImageIcon(getClass().getResource("/res/images/octopusFootTop4.png"));
 
-            if (dir == 0) {// direzione orizzontale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipHeadLeft4);
+            if (dir == 0) {// Horizontal Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octHeadLeft4);
                 button[x][y].setEnabled(false);
-                // Ship Body
-                //for (int i = 1; i < dim - 1; i++) {
-                button[x][y + 1].setDisabledIcon(shipBodyLeft4a);
-                button[x][y + 1].setEnabled(false);
-                //}
 
-                button[x][y + 2].setDisabledIcon(shipBodyLeft4b);
+                button[x][y + 1].setDisabledIcon(octBodyLeft4a);
+                button[x][y + 1].setEnabled(false);
+
+                button[x][y + 2].setDisabledIcon(octBodyLeft4b);
                 button[x][y + 2].setEnabled(false);
-                // Ship Foot
-                button[x][y + dim - 1].setDisabledIcon(shipFootLeft4);
+                // Octopus Foot
+                button[x][y + dim - 1].setDisabledIcon(octFootLeft4);
                 button[x][y + dim - 1].setEnabled(false);
             } else {
-                // direzione verticale
-                // Ship Head
-                button[x][y].setDisabledIcon(shipFootTop4);
+                // Vertical Direction
+                // Octopus Head
+                button[x][y].setDisabledIcon(octFootTop4);
                 button[x][y].setEnabled(false);
-                // Ship Body
+                // Octopus Body
                 //for (int i = 1; i < dim - 1; i++) {
-                button[x + 1][y].setDisabledIcon(shipBodyTop4b);
+                button[x + 1][y].setDisabledIcon(octBodyTop4b);
                 button[x + 1][y].setEnabled(false);
                 //}
 
-                button[x + 2][y].setDisabledIcon(shipBodyTop4a);
+                button[x + 2][y].setDisabledIcon(octBodyTop4a);
                 button[x + 2][y].setEnabled(false);
-                // Ship Foot
-                button[x + dim - 1][y].setDisabledIcon(shipHeadTop4);
+                // Octopus Foot
+                button[x + dim - 1][y].setDisabledIcon(octHeadTop4);
                 button[x + dim - 1][y].setEnabled(false);
             }
         }

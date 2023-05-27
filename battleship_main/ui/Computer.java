@@ -4,152 +4,152 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Computer {
-	private LinkedList<Position> listaColpi;
+	private LinkedList<Position> listOfHits;
 	private Random r;
 	private int hit;
-	private LinkedList<String> possibilita;
-	private Position ultimoColpo;
-	private String direzione;
+	private LinkedList<String> possibility;
+	private Position lastHit;
+	private String direction;
 	private Mappa plMap;
-	private Position primohit;// location where you first hit the ship
+	private Position firstHitLocation;// location where you first hit the octopus
 
-	public Computer(Mappa mappaAvversario) {
-		listaColpi = new LinkedList<Position>();
-		this.plMap = mappaAvversario;
+	public Computer(Mappa cpuMap) {
+		listOfHits = new LinkedList<Position>();
+		this.plMap = cpuMap;
 		for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
 			for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
 				Position p = new Position(i, j);
-				listaColpi.add(p);// initialize possible hits
+				listOfHits.add(p);// initialize possible hits
 			}
 		}
 		r = new Random();
 		hit = 0;
 	}
 
-	public Report mioTurno() {
+	public Report nextTurn() {
 
 		Report rep = new Report();
 		if (hit == 0) {
-			boolean colpo = sparaRandom();
-			rep.setP(ultimoColpo);
-			rep.setHit(colpo);
-			SquidPos sunk;
-			if (colpo) {
+			boolean attack = hitRandomly();
+			rep.setP(lastHit);
+			rep.setHit(attack);
+			OctPos dead;
+			if (attack) {
 				hit++;
-				sunk = plMap.sunk(ultimoColpo);
-				if (sunk != null) {
-					rep.setSunk(true);
-					rimuoviContorni(sunk);
+				dead = plMap.sunk(lastHit);
+				if (dead != null) {
+					rep.setDead(true);
+					removeOutlines(dead);
 					hit = 0;
-					direzione = null;
+					direction = null;
 				} else {
-					primohit = ultimoColpo;
-					possibilita = new LinkedList<String>();
-					inizializzaLista();
+					firstHitLocation = lastHit;
+					possibility = new LinkedList<String>();
+					initializeHit();
 				}
 			}
 			return rep;
 		} // shoot randomly
 		if (hit == 1) {
-			boolean colpo = sparaMirato1();
-			SquidPos sunk;
-			rep.setP(ultimoColpo);
-			rep.setHit(colpo);
-			rep.setSunk(false);
-			if (colpo) {
+			boolean isAttacked = wrongHit1();
+			OctPos dead;
+			rep.setP(lastHit);
+			rep.setHit(isAttacked);
+			rep.setDead(false);
+			if (isAttacked) {
 				hit++;
-				possibilita = null;
-				sunk = plMap.sunk(ultimoColpo);
-				if (sunk != null) {
-					rep.setSunk(true);
-					rimuoviContorni(sunk);
+				possibility = null;
+				dead = plMap.sunk(lastHit);
+				if (dead != null) {
+					rep.setDead(true);
+					removeOutlines(dead);
 					hit = 0;
-					direzione = null;
+					direction = null;
 				}
 			}
 			return rep;
 		}
 		if (hit >= 2) {
-			boolean colpo = sparaMirato2();
-			SquidPos sunk;
-			rep.setP(ultimoColpo);
-			rep.setHit(colpo);
-			rep.setSunk(false);
-			if (colpo) {
+			boolean isAttacked = wrongHit2();
+			OctPos sunk;
+			rep.setP(lastHit);
+			rep.setHit(isAttacked);
+			rep.setDead(false);
+			if (isAttacked) {
 				hit++;
-				sunk = plMap.sunk(ultimoColpo);
+				sunk = plMap.sunk(lastHit);
 				if (sunk != null) {
-					rep.setSunk(true);
-					rimuoviContorni(sunk);
+					rep.setDead(true);
+					removeOutlines(sunk);
 					hit = 0;
-					direzione = null;
+					direction = null;
 				}
 			} else {
-				invertiDirezione();
+				revertDirection();
 			}
 			return rep;
 		}
 		return null;// unattainable
 	}
 
-	private boolean sparaRandom() {
-		int tiro = r.nextInt(listaColpi.size());
-		Position p = listaColpi.remove(tiro);
-		ultimoColpo = p;
-		boolean colpo = plMap.hitt(p);
-		return colpo;
+	private boolean hitRandomly() {
+		int attackNo = r.nextInt(listOfHits.size());
+		Position p = listOfHits.remove(attackNo);
+		lastHit = p;
+		boolean attack = plMap.hitt(p);
+		return attack;
 	}
 
-	private boolean sparaMirato1() {
-		boolean errore = true;
+	private boolean wrongHit1() {
+		boolean error = true;
 		Position p = null;
 		do {
-			int tiro = r.nextInt(possibilita.size());
-			String dove = possibilita.remove(tiro);
-			p = new Position(primohit);
-			p.sposta(dove.charAt(0));
-			direzione = dove;
+			int tiro = r.nextInt(possibility.size());
+			String dove = possibility.remove(tiro);
+			p = new Position(firstHitLocation);
+			p.move(dove.charAt(0));
+			direction = dove;
 			if (!plMap.acqua(p)) {
-				listaColpi.remove(p);
-				errore = false;
+				listOfHits.remove(p);
+				error = false;
 			}
-		} while (errore);// Verify that you are not attempting to fire on an already hit position
-		ultimoColpo = p;
+		} while (error);// Verify that you are not attempting to fire on an already hit position
+		lastHit = p;
 		return plMap.hitt(p);
 	}
 
-	private boolean sparaMirato2() {
-		boolean colpibile = false;
-		Position p = new Position(ultimoColpo);
+	private boolean wrongHit2() {
+		boolean isHit = false;
+		Position p = new Position(lastHit);
 		do {
-			p.sposta(direzione.charAt(0));
+			p.move(direction.charAt(0));
 
-			if (p.fuoriMappa() || plMap.acqua(p)) {
-				invertiDirezione();
+			if (p.outOfMap() || plMap.acqua(p)) {
+				revertDirection();
 			} else {
 				if (!plMap.hit(p)) {
-					colpibile = true;
+					isHit = true;
 				}
 
 			}
-		} while (!colpibile);
-		listaColpi.remove(p);
-		ultimoColpo = p;
+		} while (!isHit);
+		listOfHits.remove(p);
+		lastHit = p;
 		return plMap.hitt(p);
 	}
 
 	//
 
-	private void rimuoviContorni(SquidPos sunk) {
-		int Xin = sunk.getXin();
-		int Xfin = sunk.getXfin();
-		int Yin = sunk.getYin();
-		int Yfin = sunk.getYfin();
+	private void removeOutlines(OctPos dead) {
+		int Xin = dead.getXin();
+		int Xfin = dead.getXfin();
+		int Yin = dead.getYin();
+		int Yfin = dead.getYfin();
 		if (Xin == Xfin) {// horizontal
 			if (Yin != 0) {
 				Position p = new Position(Xin, Yin - 1);
 				if (!plMap.acqua(p)) {
-					listaColpi.remove(p);
+					listOfHits.remove(p);
 					plMap.setAcqua(p);
 
 				}
@@ -157,7 +157,7 @@ public class Computer {
 			if (Yfin != Mappa.DIM_MAPPA - 1) {
 				Position p = new Position(Xin, Yfin + 1);
 				if (!plMap.acqua(p)) {
-					listaColpi.remove(p);
+					listOfHits.remove(p);
 					plMap.setAcqua(p);
 				}
 			}
@@ -165,7 +165,7 @@ public class Computer {
 				for (int i = 0; i <= Yfin - Yin; i++) {
 					Position p = new Position(Xin - 1, Yin + i);
 					if (!plMap.acqua(p)) {
-						listaColpi.remove(p);
+						listOfHits.remove(p);
 						plMap.setAcqua(p);
 					}
 				}
@@ -175,7 +175,7 @@ public class Computer {
 				for (int i = 0; i <= Yfin - Yin; i++) {
 					Position p = new Position(Xin + 1, Yin + i);
 					if (!plMap.acqua(p)) {
-						listaColpi.remove(p);
+						listOfHits.remove(p);
 						plMap.setAcqua(p);
 					}
 				}
@@ -184,14 +184,14 @@ public class Computer {
 			if (Xin != 0) {
 				Position p = new Position(Xin - 1, Yin);
 				if (!plMap.acqua(p)) {
-					listaColpi.remove(p);
+					listOfHits.remove(p);
 					plMap.setAcqua(p);
 				}
 			}
 			if (Xfin != Mappa.DIM_MAPPA - 1) {
 				Position p = new Position(Xfin + 1, Yin);
 				if (!plMap.acqua(p)) {
-					listaColpi.remove(p);
+					listOfHits.remove(p);
 					plMap.setAcqua(p);
 				}
 			}
@@ -199,7 +199,7 @@ public class Computer {
 				for (int i = 0; i <= Xfin - Xin; i++) {
 					Position p = new Position(Xin + i, Yin - 1);
 					if (!plMap.acqua(p)) {
-						listaColpi.remove(p);
+						listOfHits.remove(p);
 						plMap.setAcqua(p);
 					}
 				}
@@ -209,7 +209,7 @@ public class Computer {
 				for (int i = 0; i <= Xfin - Xin; i++) {
 					Position p = new Position(Xin + i, Yin + 1);
 					if (!plMap.acqua(p)) {
-						listaColpi.remove(p);
+						listOfHits.remove(p);
 						plMap.setAcqua(p);
 					}
 				}
@@ -217,30 +217,30 @@ public class Computer {
 		}
 	}
 
-	private void inizializzaLista() {
-		if (ultimoColpo.getCoordX() != 0) {
-			possibilita.add("N");
+	private void initializeHit() {
+		if (lastHit.getCoordX() != 0) {
+			possibility.add("N");
 		}
-		if (ultimoColpo.getCoordX() != Mappa.DIM_MAPPA - 1) {
-			possibilita.add("S");
+		if (lastHit.getCoordX() != Mappa.DIM_MAPPA - 1) {
+			possibility.add("S");
 		}
-		if (ultimoColpo.getCoordY() != 0) {
-			possibilita.add("O");
+		if (lastHit.getCoordY() != 0) {
+			possibility.add("O");
 		}
-		if (ultimoColpo.getCoordY() != Mappa.DIM_MAPPA - 1) {
-			possibilita.add("E");
+		if (lastHit.getCoordY() != Mappa.DIM_MAPPA - 1) {
+			possibility.add("E");
 		}
 	}
 
-	private void invertiDirezione() {
-		if (direzione.equals("N")) {
-			direzione = "S";
-		} else if (direzione.equals("S")) {
-			direzione = "N";
-		} else if (direzione.equals("E")) {
-			direzione = "O";
-		} else if (direzione.equals("O")) {
-			direzione = "E";
+	private void revertDirection() {
+		if (direction.equals("N")) {
+			direction = "S";
+		} else if (direction.equals("S")) {
+			direction = "N";
+		} else if (direction.equals("E")) {
+			direction = "O";
+		} else if (direction.equals("O")) {
+			direction = "E";
 		}
 	}
 
