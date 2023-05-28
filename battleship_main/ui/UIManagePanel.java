@@ -109,10 +109,10 @@ public class UIManagePanel extends UIJPanelBG{
         load.setOpaque(false);
         load.setBorderPainted(false);
         load.setContentAreaFilled(false);
-        load.setBounds(80, 500, 137, 102);
+        load.setBounds(10, 500, 137, 102);
         load.setCursor(cursor);
         load.setText("load");
-        load.setEnabled(false);
+        load.setEnabled(true);
         
         // Button Gioca
         ImageIcon giocaImg = new ImageIcon(getClass().getResource("/res/images/gioca.png"));

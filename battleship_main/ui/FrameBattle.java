@@ -5,10 +5,7 @@ package battleship_main.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -23,8 +20,8 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
             Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/ocean.png")));
     Report rep;
     Computer cpu;
-    Mappa cpuMap;
-    Mappa playerMap;
+    static Mappa cpuMap;
+    static Mappa playerMap;
     int numOctPlayer = 10;
     int numOctCPU = 10;
     StringBuilder sb = new StringBuilder();
@@ -47,6 +44,8 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
         JLabel backLabel = new JLabel(backIcon);
         ImageIcon SaveIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
         JLabel SaveLabel = new JLabel(SaveIcon);
+        
+
 
         backLabel.setBounds(10, 10, backIcon.getIconWidth(), backIcon.getIconHeight());
         SaveLabel.setBounds(10, 200, SaveIcon.getIconWidth(), SaveIcon.getIconHeight());
@@ -402,6 +401,27 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
             }
         }
 
+    }
+    static void load(){
+        //Load the game from mappa.dat and playerOctopus.dat
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("playerOctopus.dat"));
+            playerMap = (Mappa) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("mappa.dat"));
+            cpuMap = (Mappa) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     private void handleBackClick() {
         int result = JOptionPane.showConfirmDialog(

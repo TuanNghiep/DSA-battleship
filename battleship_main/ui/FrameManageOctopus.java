@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Random;
@@ -71,6 +72,10 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         // RESET
         if (testo.equals("reset")) {
             reset();
+        }
+        if(testo.equals("load")) {
+            FrameBattle.load();
+
         }
         // RANDOM
         else if (testo.equals("random")) {
@@ -146,6 +151,8 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         }
         this.requestFocusInWindow();
     }
+
+
 
     private void random() {
         if (insertOct == NUM_OCT) {
