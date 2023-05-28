@@ -109,7 +109,7 @@ public class UIManagePanel extends UIJPanelBG{
         load.setOpaque(false);
         load.setBorderPainted(false);
         load.setContentAreaFilled(false);
-        load.setBounds(10, 500, 137, 102);
+        load.setBounds(80, 600, 137, 102);
         load.setCursor(cursor);
         load.setText("load");
         load.setEnabled(true);
@@ -131,6 +131,7 @@ public class UIManagePanel extends UIJPanelBG{
         this.add(managePanelLabel);
         this.add(octSelect);
         this.add(random);
+        this.add(load);
         this.add(fight);
         this.add(reset);
 
