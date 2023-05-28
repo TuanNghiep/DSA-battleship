@@ -41,15 +41,29 @@ public class FrameBattle implements ActionListener, KeyListener {
         // Add this at the beginning of the constructor
         ImageIcon backIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
         JLabel backLabel = new JLabel(backIcon);
+        ImageIcon SaveIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
+        JLabel SaveLabel = new JLabel(SaveIcon);
+
         backLabel.setBounds(10, 10, backIcon.getIconWidth(), backIcon.getIconHeight());
+        SaveLabel.setBounds(10, 200, SaveIcon.getIconWidth(), SaveIcon.getIconHeight());
+        panel.add(SaveLabel);
         panel.add(backLabel);
 
+        
         backLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 handleBackClick();
             }
         });
+
+        SaveLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleSaveClick();
+            }
+        });
+
 
         playerMap = mappa;
         cpu = new Computer(mappa);
@@ -360,7 +374,18 @@ public class FrameBattle implements ActionListener, KeyListener {
         targetPanel.repaint();
     }
 
+    private void handleSaveClick() {
+        int result = JOptionPane.showConfirmDialog(
+                frame,
+                "Do you want to save the game?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (result == JOptionPane.YES_OPTION) {
+            
+        }
 
+    }
     private void handleBackClick() {
         int result = JOptionPane.showConfirmDialog(
                 frame,

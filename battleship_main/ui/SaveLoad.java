@@ -17,6 +17,7 @@ public class SaveLoad {
             e.printStackTrace();
         }
     }
+    
     public void marshallAdvLinkedListToFile(LinkedList<int[]> advShips){   
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("advShips.dat"));
