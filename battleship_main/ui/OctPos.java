@@ -1,6 +1,8 @@
 package battleship_main.ui;
 
-public class OctPos {
+import java.io.Serializable;
+
+public class OctPos implements Serializable {
 
 	private int xin, yin;
 	private int xfin, yfin;

@@ -6,16 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
 
-public class FrameManageOctopus extends JFrame implements ActionListener, KeyListener{
+public class FrameManageOctopus extends JFrame implements ActionListener, KeyListener, Serializable{
     private static final long serialVersionUID = 2923975805665801740L;
     private static final int NUM_OCT = 10;
     LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
-    // build the frameBattle
+    // building the frameBattle
     boolean finish = false;
     int insertOct = 0;
     int[] counterOct = { 1, 2, 3, 4 };
@@ -59,6 +60,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         choosePan.random.addActionListener(this);
         choosePan.reset.addActionListener(this);
         choosePan.fight.addActionListener(this);
+        choosePan.load.addActionListener(this);
         playerOctopus = new LinkedList<int[]>();
     }
 
@@ -74,6 +76,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         else if (testo.equals("random")) {
             random();
         }
+
         // GIOCA
         else if (testo.equals("fight")) {
             gioca();
@@ -200,6 +203,8 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         FrameBattle battle = new FrameBattle(playerOctopus, mappa);
         battle.frame.setVisible(true);
         this.setVisible(false);
+        
+
     }
 
     @Override

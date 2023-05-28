@@ -5,11 +5,15 @@ package battleship_main.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 //Battle screen
-public class FrameBattle implements ActionListener, KeyListener {
+public class FrameBattle implements ActionListener, KeyListener, Serializable {
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
     JFrame frame = new JFrame("Battleship Map");
@@ -36,7 +40,7 @@ public class FrameBattle implements ActionListener, KeyListener {
     boolean defeatCPU;
 
     int offsetX;
-
+    
     public FrameBattle(LinkedList<int[]> playerOctopus, Mappa mappa) {
         // Add this at the beginning of the constructor
         ImageIcon backIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
@@ -60,7 +64,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         SaveLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                handleSaveClick();
+                handleSaveClick(playerMap,cpuMap);
             }
         });
 
@@ -122,7 +126,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         for (int[] v : playerOctopus) {
             playerPanel.drawOct(v);
         }
-
+        
     }
 
     void setAttack(Report rep, boolean player) {
@@ -374,7 +378,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         targetPanel.repaint();
     }
 
-    private void handleSaveClick() {
+    private void handleSaveClick(Mappa playerMappa,Mappa cpuMap) {
         int result = JOptionPane.showConfirmDialog(
                 frame,
                 "Do you want to save the game?",
@@ -382,7 +386,20 @@ public class FrameBattle implements ActionListener, KeyListener {
                 JOptionPane.YES_NO_OPTION
         );
         if (result == JOptionPane.YES_OPTION) {
-            
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("playerOctopus.dat"));
+                oos.writeObject(playerMap);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("mappa.dat"));
+                oos.writeObject(cpuMap);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

@@ -2,8 +2,9 @@ package battleship_main.ui;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.io.Serializable;
 
-public class Mappa {
+public class Mappa implements Serializable {
 	public static final int DIM_MAPPA = 10;
 	private final char NULL = '0', OCTOPUS = 'X', ACQUA = 'A', HIT = 'H';
 	private char[][] mappa;
