@@ -5,11 +5,12 @@ package battleship_main.ui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 //Battle screen
-public class FrameBattle implements ActionListener, KeyListener {
+public class FrameBattle implements ActionListener, KeyListener, Serializable {
     UIMapPanel playerPanel = new UIMapPanel("player");
     UIMapPanel cpuPanel = new UIMapPanel("cpu");
     JFrame frame = new JFrame("Battleship Map");
@@ -19,12 +20,13 @@ public class FrameBattle implements ActionListener, KeyListener {
             Toolkit.getDefaultToolkit().createImage(getClass().getResource("/res/images/ocean.png")));
     Report rep;
     Computer cpu;
-    Mappa cpuMap;
-    Mappa playerMap;
+    static Mappa cpuMap;
+    static Mappa playerMap;
     int numOctPlayer = 10;
     int numOctCPU = 10;
     StringBuilder sb = new StringBuilder();
     boolean b = true;
+
     UIStatPanel statPlayer;
     UIStatPanel statCPU;
     JPanel targetPanel = new JPanel(null);
@@ -36,20 +38,37 @@ public class FrameBattle implements ActionListener, KeyListener {
     boolean defeatCPU;
 
     int offsetX;
-
+    static LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
+    
     public FrameBattle(LinkedList<int[]> playerOctopus, Mappa mappa) {
         // Add this at the beginning of the constructor
         ImageIcon backIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
         JLabel backLabel = new JLabel(backIcon);
+        ImageIcon SaveIcon = new ImageIcon(getClass().getResource("/res/images/back.png"));
+        JLabel SaveLabel = new JLabel(SaveIcon);
+        
+
+
         backLabel.setBounds(10, 10, backIcon.getIconWidth(), backIcon.getIconHeight());
+        SaveLabel.setBounds(10, 200, SaveIcon.getIconWidth(), SaveIcon.getIconHeight());
+        //panel.add(SaveLabel);
         panel.add(backLabel);
 
+        
         backLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 handleBackClick();
             }
         });
+
+        SaveLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleSaveClick(playerMap,cpuMap);
+            }
+        });
+
 
         playerMap = mappa;
         cpu = new Computer(mappa);
@@ -108,7 +127,7 @@ public class FrameBattle implements ActionListener, KeyListener {
         for (int[] v : playerOctopus) {
             playerPanel.drawOct(v);
         }
-
+        
     }
 
     void setAttack(Report rep, boolean player) {
@@ -360,7 +379,65 @@ public class FrameBattle implements ActionListener, KeyListener {
         targetPanel.repaint();
     }
 
+    private void handleSaveClick(Mappa playerMappa,Mappa cpuMap) {
+        int result = JOptionPane.showConfirmDialog(
+                frame,
+                "Do you want to save the game?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("playerOctopus.dat"));
+                oos.writeObject(playerMap);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("mappa.dat"));
+                oos.writeObject(cpuMap);
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+    void drawLoad(){
+        ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
+        ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
+		for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
+			for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
+				
+			}
+		}
+
+    }
+    static void load(){
+        //Load the game from mappa.dat and playerOctopus.dat
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("playerOctopus.dat"));
+            playerMap = (Mappa) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("mappa.dat"));
+            cpuMap = (Mappa) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        
+
+    }
     private void handleBackClick() {
         int result = JOptionPane.showConfirmDialog(
                 frame,

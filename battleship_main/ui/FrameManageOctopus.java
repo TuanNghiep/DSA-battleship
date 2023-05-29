@@ -15,7 +15,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
     private static final long serialVersionUID = 2923975805665801740L;
     private static final int NUM_OCT = 10;
     LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
-    // build the frameBattle
+    // building the frameBattle
     boolean finish = false;
     int insertOct = 0;
     int[] counterOct = { 1, 2, 3, 4 };
@@ -70,13 +70,15 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         if (testo.equals("reset")) {
             reset();
         }
+
         // RANDOM
         else if (testo.equals("random")) {
             random();
         }
-        // GIOCA
+
+        // fight
         else if (testo.equals("fight")) {
-            gioca();
+            fight();
 
         } else {
             if (finish) {
@@ -85,14 +87,14 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
             StringTokenizer st = new StringTokenizer(source.getActionCommand(), " ");
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            int nave = -1;
+            int ship = -1;
             int dim = 0;
             int dir;
             for (int i = 0; i < choosePan.octopus.length; i++) {
                 if (choosePan.octopus[i].isSelected())
-                    nave = i;
+                    ship = i;
             }
-            switch (nave) {
+            switch (ship) {
                 case 0:
                     dim = 4;
                     break;
@@ -116,12 +118,12 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
                 // increment the number of inserted optopus
                 insertOct++;
                 // decrease the number of inserted optopus
-                counterOct[nave]--;
-                choosePan.counterLabel[nave].setText("" + counterOct[nave]);
+                counterOct[ship]--;
+                choosePan.counterLabel[ship].setText("" + counterOct[ship]);
                 
                 // disable octopus if all are entered
-                if (choosePan.counterLabel[nave].getText().equals("0")) {
-                    choosePan.octopus[nave].setEnabled(false);
+                if (choosePan.counterLabel[ship].getText().equals("0")) {
+                    choosePan.octopus[ship].setEnabled(false);
                     for (int i = 0; i < choosePan.octopus.length; i++) {
                         if (choosePan.octopus[i].isEnabled() && !choosePan.octopus[i].isSelected()) {
                             choosePan.octopus[i].setSelected(true);
@@ -143,6 +145,8 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         }
         this.requestFocusInWindow();
     }
+
+
 
     private void random() {
         if (insertOct == NUM_OCT) {
@@ -196,10 +200,12 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         insertOct = 0;
     }
 
-    private void gioca() {
+    private void fight() {
         FrameBattle battle = new FrameBattle(playerOctopus, mappa);
         battle.frame.setVisible(true);
         this.setVisible(false);
+        
+
     }
 
     @Override
@@ -209,7 +215,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         if (s == 'g') {
 
             random();
-            gioca();
+            fight();
         } else {
             if (s == 'r') {
                 random();
@@ -223,7 +229,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
                 }
                 if (tasto == KeyEvent.VK_ENTER) {
                     if (finish) {
-                        gioca();
+                        fight();
                     }
                 }
             }
