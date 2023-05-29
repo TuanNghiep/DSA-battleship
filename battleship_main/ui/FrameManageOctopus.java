@@ -59,7 +59,6 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         choosePan.random.addActionListener(this);
         choosePan.reset.addActionListener(this);
         choosePan.fight.addActionListener(this);
-        choosePan.load.addActionListener(this);
         playerOctopus = new LinkedList<int[]>();
     }
 
@@ -71,11 +70,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         if (testo.equals("reset")) {
             reset();
         }
-        if(testo.equals("load")) {
-            FrameBattle.load();
 
-
-        }
         // RANDOM
         else if (testo.equals("random")) {
             random();
@@ -92,14 +87,14 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
             StringTokenizer st = new StringTokenizer(source.getActionCommand(), " ");
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            int nave = -1;
+            int ship = -1;
             int dim = 0;
             int dir;
             for (int i = 0; i < choosePan.octopus.length; i++) {
                 if (choosePan.octopus[i].isSelected())
-                    nave = i;
+                    ship = i;
             }
-            switch (nave) {
+            switch (ship) {
                 case 0:
                     dim = 4;
                     break;
@@ -123,12 +118,12 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
                 // increment the number of inserted optopus
                 insertOct++;
                 // decrease the number of inserted optopus
-                counterOct[nave]--;
-                choosePan.counterLabel[nave].setText("" + counterOct[nave]);
+                counterOct[ship]--;
+                choosePan.counterLabel[ship].setText("" + counterOct[ship]);
                 
                 // disable octopus if all are entered
-                if (choosePan.counterLabel[nave].getText().equals("0")) {
-                    choosePan.octopus[nave].setEnabled(false);
+                if (choosePan.counterLabel[ship].getText().equals("0")) {
+                    choosePan.octopus[ship].setEnabled(false);
                     for (int i = 0; i < choosePan.octopus.length; i++) {
                         if (choosePan.octopus[i].isEnabled() && !choosePan.octopus[i].isSelected()) {
                             choosePan.octopus[i].setSelected(true);
