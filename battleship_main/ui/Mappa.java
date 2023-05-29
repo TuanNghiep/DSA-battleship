@@ -8,7 +8,7 @@ public class Mappa implements Serializable {
 	public static final int DIM_MAPPA = 10;
 	private final char NULL = '0', OCTOPUS = 'X', ACQUA = 'A', HIT = 'H';
 	private char[][] mappa;
-	private LinkedList<OctPos> listOct;
+	LinkedList<OctPos> listOct;
 
 	public Mappa() {
 		listOct = new LinkedList<OctPos>();
@@ -218,4 +218,8 @@ public class Mappa implements Serializable {
 			System.out.println("");
 		}
 	}
+
+    public LinkedList<int[]> get(LinkedList<int[]> playerOctopus) {
+        return null;
+    }
 }

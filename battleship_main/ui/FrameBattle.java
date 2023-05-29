@@ -26,6 +26,7 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
     int numOctCPU = 10;
     StringBuilder sb = new StringBuilder();
     boolean b = true;
+
     UIStatPanel statPlayer;
     UIStatPanel statCPU;
     JPanel targetPanel = new JPanel(null);
@@ -37,6 +38,7 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
     boolean defeatCPU;
 
     int offsetX;
+    static LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
     
     public FrameBattle(LinkedList<int[]> playerOctopus, Mappa mappa) {
         // Add this at the beginning of the constructor
@@ -402,6 +404,16 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
         }
 
     }
+    void drawLoad(){
+        ImageIcon fire = new ImageIcon(getClass().getResource("/res/images/fireButton.gif"));
+        ImageIcon water = new ImageIcon(getClass().getResource("/res/images/grayButton.gif"));
+		for (int i = 0; i < Mappa.DIM_MAPPA; i++) {
+			for (int j = 0; j < Mappa.DIM_MAPPA; j++) {
+				
+			}
+		}
+
+    }
     static void load(){
         //Load the game from mappa.dat and playerOctopus.dat
         try {
@@ -422,6 +434,9 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        
+        
+
     }
     private void handleBackClick() {
         int result = JOptionPane.showConfirmDialog(

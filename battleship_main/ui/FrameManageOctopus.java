@@ -6,14 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
 
-public class FrameManageOctopus extends JFrame implements ActionListener, KeyListener, Serializable{
+public class FrameManageOctopus extends JFrame implements ActionListener, KeyListener{
     private static final long serialVersionUID = 2923975805665801740L;
     private static final int NUM_OCT = 10;
     LinkedList<int[]> playerOctopus;// contains the inserted optopus, is for
@@ -76,15 +74,16 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         if(testo.equals("load")) {
             FrameBattle.load();
 
+
         }
         // RANDOM
         else if (testo.equals("random")) {
             random();
         }
 
-        // GIOCA
+        // fight
         else if (testo.equals("fight")) {
-            gioca();
+            fight();
 
         } else {
             if (finish) {
@@ -206,7 +205,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         insertOct = 0;
     }
 
-    private void gioca() {
+    private void fight() {
         FrameBattle battle = new FrameBattle(playerOctopus, mappa);
         battle.frame.setVisible(true);
         this.setVisible(false);
@@ -221,7 +220,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
         if (s == 'g') {
 
             random();
-            gioca();
+            fight();
         } else {
             if (s == 'r') {
                 random();
@@ -235,7 +234,7 @@ public class FrameManageOctopus extends JFrame implements ActionListener, KeyLis
                 }
                 if (tasto == KeyEvent.VK_ENTER) {
                     if (finish) {
-                        gioca();
+                        fight();
                     }
                 }
             }
