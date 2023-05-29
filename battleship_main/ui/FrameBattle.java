@@ -51,7 +51,7 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
 
         backLabel.setBounds(10, 10, backIcon.getIconWidth(), backIcon.getIconHeight());
         SaveLabel.setBounds(10, 200, SaveIcon.getIconWidth(), SaveIcon.getIconHeight());
-        panel.add(SaveLabel);
+        //panel.add(SaveLabel);
         panel.add(backLabel);
 
         

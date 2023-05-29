@@ -131,7 +131,7 @@ public class UIManagePanel extends UIJPanelBG{
         this.add(managePanelLabel);
         this.add(octSelect);
         this.add(random);
-        this.add(load);
+        //this.add(load);
         this.add(fight);
         this.add(reset);
 
