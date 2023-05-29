@@ -251,10 +251,10 @@ public class FrameBattle implements ActionListener, KeyListener, Serializable {
         deleteSquid(dim, statPlayer);
     }
 
-    private void setDeadSquid(OctPos naveAffondata) {
+    private void setDeadSquid(OctPos octSunk) {
         int dim = 0;
-        for (int i = naveAffondata.getXin(); i <= naveAffondata.getXfin(); i++) {
-            for (int j = naveAffondata.getYin(); j <= naveAffondata.getYfin(); j++) {
+        for (int i = octSunk.getXin(); i <= octSunk.getXfin(); i++) {
+            for (int j = octSunk.getYin(); j <= octSunk.getYfin(); j++) {
                 cpuPanel.button[i][j].setIcon(wreck);
                 cpuPanel.button[i][j].setEnabled(false);
                 cpuPanel.button[i][j].setDisabledIcon(wreck);
